@@ -66,6 +66,8 @@ export default class Profile extends Component {
       Loading_Time_String: '',
       Loading_Date_String: '',
 
+      AdditionalShippingInformationString: '',
+
 
       containerSizeIDString: '',
 
@@ -115,6 +117,7 @@ export default class Profile extends Component {
          {a: 'ALPS', b: '107',  c: '12.12.2022', d: 'Available Stock: 100'},
          {a: 'ALPS', b: '107',  c: '30.12.2022', d: 'Available Stock: 100'},
          {a: 'ALPS', b: '311',  c: '31.12.2022', d: 'Available Stock: 134'},
+         {a: 'ALPS', b: '107',  c: '12.12.2022', d: 'Available Stock: 100'},
          {a: 'ALPS', b: '107',  c: '12.12.2022', d: 'Available Stock: 100'},
          ],
          isModalVisible: false,
@@ -194,7 +197,7 @@ itemListForDrawer:  [
       Loading_Time_String: bookingDataJson.data.Loading_Time_String,
       Loading_Date_String: bookingDataJson.data.Loading_Date_String,
       CargoHazadeousString:bookingDataJson.data.CargoHazadeousString,
-
+      AdditionalShippingInformationString: bookingDataJson.data.AdditionalShippingInformationString,
       Company_String: bookingDataJson.data.Company_String,
       Address1_String: bookingDataJson.data.Address1_String,
       Address2_String: bookingDataJson.data.Address2_String,
@@ -867,11 +870,15 @@ console.error(error);
     color: '#000',padding: 4, fontSize: 29.6, color: 'black'
   }}>{'Site Contact Tel Number: '+ this.state.SiteContactTelnoString}</Text> } 
 
-{ (index == 11 && (this.state.haulageIDString == 'type1' || this.state.haulageIDString == 'type3')) && <Text style={{fontFamily: 'BebasNeuePro-Middle',
+{ index == 11 && <Text style={{fontFamily: 'BebasNeuePro-Middle',
+    color: '#000',padding: 4, fontSize: 29.6, color: 'black'
+  }}>{'Additional Shipping Information: '+ this.state.AdditionalShippingInformationString}</Text> }
+
+{ (index == 12 && (this.state.haulageIDString == 'type1' || this.state.haulageIDString == 'type3')) && <Text style={{fontFamily: 'BebasNeuePro-Middle',
     color: '#000',padding: 4, fontSize: 29.6, color: 'black'
   }}>{'Loading Date: '+ this.state.Loading_Date_String}</Text> } 
 
-{ (index == 12 && (this.state.haulageIDString == 'type1' || this.state.haulageIDString == 'type3')) && <Text style={{fontFamily: 'BebasNeuePro-Middle',
+{ (index == 13 && (this.state.haulageIDString == 'type1' || this.state.haulageIDString == 'type3')) && <Text style={{fontFamily: 'BebasNeuePro-Middle',
     color: '#000',padding: 4, fontSize: 29.6, color: 'black'
   }}>{'Loading Time: '+ this.state.Loading_Time_String}</Text> } 
 
@@ -879,67 +886,67 @@ console.error(error);
     color: '#000',padding: 4, fontSize: 29.6, color: 'black'
   }}>{'Loading Address: '+ this.state.LoadingAddressString}</Text> }  */}
 
-{ (index == 13 && (this.state.haulageIDString == 'type1' || this.state.haulageIDString == 'type3')) && <Text style={{fontFamily: 'BebasNeuePro-Middle',
+{ (index == 14 && (this.state.haulageIDString == 'type1' || this.state.haulageIDString == 'type3')) && <Text style={{fontFamily: 'BebasNeuePro-Middle',
     color: '#000',padding: 4, fontSize: 29.6, color: 'black'
   }}>{'Company: '+ this.state.Company_String_LA}</Text> }
 
-{ (index == 14 && (this.state.haulageIDString == 'type1' || this.state.haulageIDString == 'type3')) && <Text style={{fontFamily: 'BebasNeuePro-Middle',
+{ (index == 15 && (this.state.haulageIDString == 'type1' || this.state.haulageIDString == 'type3')) && <Text style={{fontFamily: 'BebasNeuePro-Middle',
     color: '#000',padding: 4, fontSize: 29.6, color: 'black'
   }}>{'Address 1: '+ this.state.Address1_String_LA}</Text> }
 
-{ (index == 15 && (this.state.haulageIDString == 'type1' || this.state.haulageIDString == 'type3')) && <Text style={{fontFamily: 'BebasNeuePro-Middle',
+{ (index == 16 && (this.state.haulageIDString == 'type1' || this.state.haulageIDString == 'type3')) && <Text style={{fontFamily: 'BebasNeuePro-Middle',
     color: '#000',padding: 4, fontSize: 29.6, color: 'black'
   }}>{'Address 2: '+ this.state.Address2_String_LA}</Text> }
 
-{ (index == 16 && (this.state.haulageIDString == 'type1' || this.state.haulageIDString == 'type3')) && <Text style={{fontFamily: 'BebasNeuePro-Middle',
+{ (index == 17 && (this.state.haulageIDString == 'type1' || this.state.haulageIDString == 'type3')) && <Text style={{fontFamily: 'BebasNeuePro-Middle',
     color: '#000',padding: 4, fontSize: 29.6, color: 'black'
   }}>{'City: '+ this.state.City_String_LA}</Text> }
 
-{ (index == 17 && (this.state.haulageIDString == 'type1' || this.state.haulageIDString == 'type3')) && <Text style={{fontFamily: 'BebasNeuePro-Middle',
+{ (index == 18 && (this.state.haulageIDString == 'type1' || this.state.haulageIDString == 'type3')) && <Text style={{fontFamily: 'BebasNeuePro-Middle',
     color: '#000',padding: 4, fontSize: 29.6, color: 'black'
   }}>{'Country: '+ this.state.Country_String_LA}</Text> }
 
-{ (index == 18 && (this.state.haulageIDString == 'type1' || this.state.haulageIDString == 'type3')) && <Text style={{fontFamily: 'BebasNeuePro-Middle',
+{ (index == 19 && (this.state.haulageIDString == 'type1' || this.state.haulageIDString == 'type3')) && <Text style={{fontFamily: 'BebasNeuePro-Middle',
     color: '#000',padding: 4, fontSize: 29.6, color: 'black'
   }}>{'Postal Code: '+ this.state.PostalCode_String_LA}</Text> }
 
-{ (index == 11 && (this.state.haulageIDString == 'type2' || this.state.haulageIDString == 'type4')) && <Text style={{fontFamily: 'BebasNeuePro-Middle',
+{ (index == 12 && (this.state.haulageIDString == 'type2' || this.state.haulageIDString == 'type4')) && <Text style={{fontFamily: 'BebasNeuePro-Middle',
     color: '#000',padding: 4, fontSize: 29.6, color: 'black'
   }}>{'Delivery Date: '+ this.state.Delivery_Date_String}</Text> } 
 
-{ (index == 12 && (this.state.haulageIDString == 'type2' || this.state.haulageIDString == 'type4')) && <Text style={{fontFamily: 'BebasNeuePro-Middle',
+{ (index == 13 && (this.state.haulageIDString == 'type2' || this.state.haulageIDString == 'type4')) && <Text style={{fontFamily: 'BebasNeuePro-Middle',
     color: '#000',padding: 4, fontSize: 29.6, color: 'black'
   }}>{'Delivery Time: '+ this.state.Delivery_Time_String}</Text> } 
 
-{ (index == 13 && (this.state.haulageIDString == 'type2' || this.state.haulageIDString == 'type4')) && <Text style={{fontFamily: 'BebasNeuePro-Middle',
+{ (index == 14 && (this.state.haulageIDString == 'type2' || this.state.haulageIDString == 'type4')) && <Text style={{fontFamily: 'BebasNeuePro-Middle',
     color: '#000',padding: 4, fontSize: 29.6, color: 'black'
   }}>{'Company: '+ this.state.Company_String}</Text> }
 
-{ (index == 14 && (this.state.haulageIDString == 'type2' || this.state.haulageIDString == 'type4')) && <Text style={{fontFamily: 'BebasNeuePro-Middle',
+{ (index == 15 && (this.state.haulageIDString == 'type2' || this.state.haulageIDString == 'type4')) && <Text style={{fontFamily: 'BebasNeuePro-Middle',
     color: '#000',padding: 4, fontSize: 29.6, color: 'black'
   }}>{'Address 1: '+ this.state.Address1_String}</Text> }
 
-{ (index == 15 && (this.state.haulageIDString == 'type2' || this.state.haulageIDString == 'type4')) && <Text style={{fontFamily: 'BebasNeuePro-Middle',
+{ (index == 16 && (this.state.haulageIDString == 'type2' || this.state.haulageIDString == 'type4')) && <Text style={{fontFamily: 'BebasNeuePro-Middle',
     color: '#000',padding: 4, fontSize: 29.6, color: 'black'
   }}>{'Address 2: '+ this.state.Address2_String}</Text> }
 
-{ (index == 16 && (this.state.haulageIDString == 'type2' || this.state.haulageIDString == 'type4')) && <Text style={{fontFamily: 'BebasNeuePro-Middle',
+{ (index == 17 && (this.state.haulageIDString == 'type2' || this.state.haulageIDString == 'type4')) && <Text style={{fontFamily: 'BebasNeuePro-Middle',
     color: '#000',padding: 4, fontSize: 29.6, color: 'black'
   }}>{'City: '+ this.state.City_String}</Text> }
 
-{ (index == 17 && (this.state.haulageIDString == 'type2' || this.state.haulageIDString == 'type4')) && <Text style={{fontFamily: 'BebasNeuePro-Middle',
+{ (index == 18 && (this.state.haulageIDString == 'type2' || this.state.haulageIDString == 'type4')) && <Text style={{fontFamily: 'BebasNeuePro-Middle',
     color: '#000',padding: 4, fontSize: 29.6, color: 'black'
   }}>{'Country: '+ this.state.Country_String}</Text> }
 
-{ (index == 18 && (this.state.haulageIDString == 'type2' || this.state.haulageIDString == 'type4')) && <Text style={{fontFamily: 'BebasNeuePro-Middle',
+{ (index == 19 && (this.state.haulageIDString == 'type2' || this.state.haulageIDString == 'type4')) && <Text style={{fontFamily: 'BebasNeuePro-Middle',
     color: '#000',padding: 4, fontSize: 29.6, color: 'black'
   }}>{'Postal Code: '+ this.state.PostalCode_String}</Text> }
 
-{ (index == 19 && (this.state.haulageIDString == 'type2' || this.state.haulageIDString == 'type4')) && <Text style={{fontFamily: 'BebasNeuePro-Middle',
+{ (index == 20 && (this.state.haulageIDString == 'type2' || this.state.haulageIDString == 'type4')) && <Text style={{fontFamily: 'BebasNeuePro-Middle',
     color: '#000',padding: 4, fontSize: 29.6, color: 'black'
   }}>{'Collection Date: '+ this.state.Collection_Date_String}</Text> } 
 
-{ (index == 20 && (this.state.haulageIDString == 'type2' || this.state.haulageIDString == 'type4')) && <Text style={{fontFamily: 'BebasNeuePro-Middle',
+{ (index == 21 && (this.state.haulageIDString == 'type2' || this.state.haulageIDString == 'type4')) && <Text style={{fontFamily: 'BebasNeuePro-Middle',
     color: '#000',padding: 4, fontSize: 29.6, color: 'black'
   }}>{'Collection Time: '+ this.state.Collection_Time_String}</Text> }
 

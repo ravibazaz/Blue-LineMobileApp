@@ -3721,7 +3721,7 @@ color: '#000',padding: 4, fontSize: 26.4, color: 'black', marginTop: 15
 
 <Text style={{fontFamily: 'BebasNeuePro-Middle',
   color: '#000',padding: 4, fontSize: 26.4, color: 'black', marginTop: 15
-}}>{'Additional Shipping information'}</Text>
+}}>{'Additional Shipping Information'}</Text>
 
 <TextInput
                     style={{
@@ -3752,7 +3752,7 @@ color: '#000',padding: 4, fontSize: 26.4, color: 'black', marginTop: 15
         marginBottom: -5,
         alignSelf: 'flex-start',
         marginLeft: 4
-    }}>{'Additional Shipping information field can not be blank'}</Text> }
+    }}>{'Additional Shipping Information field can not be blank'}</Text> }
 
 {/* <Text style={{fontFamily: 'BebasNeuePro-Middle',
   color: '#000',padding: 4, fontSize: 26.4, color: 'black', marginTop: 15
