@@ -107,7 +107,7 @@ else
       //If response is not in json then in error
       .catch((error) => {
         alert('Netwok request failed. Please check your internet connection and try again');
-        console.error(error);
+        console.error('error is: ', error);
         this.loadingButton.showLoading(false);
       });
     }  
