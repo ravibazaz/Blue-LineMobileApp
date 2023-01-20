@@ -1,5 +1,5 @@
 import React,{Component, useState} from 'react';
-import {StatusBar,  AppState, View, Platform, ActivityIndicator, Text, AsyncStorage, KeyboardAvoidingView, StyleSheet, FlatList, ScrollView, TouchableOpacity, Linking, SafeAreaView, TextInput, Image, Dimensions } from 'react-native'
+import {StatusBar,  AppState, View, Keyboard, Platform, ActivityIndicator, Text, AsyncStorage, KeyboardAvoidingView, StyleSheet, FlatList, ScrollView, TouchableOpacity, Linking, SafeAreaView, TextInput, Image, Dimensions } from 'react-native'
 import DropDownPicker from 'react-native-dropdown-picker';
 import DatePicker from 'react-native-date-picker'
 import DateTimePicker from '../components/DateTimePicker';
@@ -91,7 +91,7 @@ export default class Profile extends Component {
         {label1: 'Sidelifter (lifted to ground): Drop & Collect', value1: 'type2'},
         {label1: 'Standard (on trailer): Wait & load', value1: 'type3'},
         {label1: 'Standard (on trailer): Trailer Drop & Collect', value1: 'type4'},
-        {label1: 'Standard (on trailer): Quay to Quay', value1: 'type5'},
+        {label1: 'No Haulage: Quay to Quay', value1: 'type5'},
         {label1: 'Other', value1: 'type6'}
       ],
       
@@ -160,6 +160,7 @@ export default class Profile extends Component {
          errCollectionTime: false,
          loading: false,
          portDropdownHeight: 240,
+         keyboardState: 'closed',
 
          futureDateString: new Date(new Date().getTime() + (24 * 60 * 60 * 1000)),
 
@@ -199,6 +200,24 @@ itemListForDrawer:  [
     this.setValue = this.setValue.bind(this);
     this.setValueHaulage = this.setValueHaulage.bind(this);
   }
+
+  componentWillMount () {
+    this.keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', this._keyboardDidShow);
+    this.keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', this._keyboardDidHide);
+  }
+
+  _keyboardDidShow = () => {
+    this.setState({
+        keyboardState: 'opened'
+    });
+  }
+
+  _keyboardDidHide = () => {
+    this.setState({
+        keyboardState: 'closed'
+    });
+  }
+
   componentDidMount = async () => 
   {
 
@@ -888,27 +907,27 @@ _onPressBotton1Handler = async () => {
             })
            }
            
-           else if (this.state.SiteContactNameString.trim() == '')
-           {
-            Toast.show('Please make sure all fields are filled in correctly.', Toast.LONG)
-            this.setState({
-              errSiteContactName : true,
-            })
-           }
-           else if (this.state.SiteContactTelnoString.trim() == '')
-           {
-            Toast.show('Please make sure all fields are filled in correctly.', Toast.LONG)
-            this.setState({
-              errSiteContactTelNumber : true,
-            })
-           }
-           else if (this.state.AdditionalShippingInformationString.trim() == '')
-           {
-            Toast.show('Please make sure all fields are filled in correctly.', Toast.LONG)
-            this.setState({
-              errAdditionalShippingInformation : true,
-            })
-           }
+          //  else if (this.state.SiteContactNameString.trim() == '')
+          //  {
+          //   Toast.show('Please make sure all fields are filled in correctly.', Toast.LONG)
+          //   this.setState({
+          //     errSiteContactName : true,
+          //   })
+          //  }
+          //  else if (this.state.SiteContactTelnoString.trim() == '')
+          //  {
+          //   Toast.show('Please make sure all fields are filled in correctly.', Toast.LONG)
+          //   this.setState({
+          //     errSiteContactTelNumber : true,
+          //   })
+          //  }
+          //  else if (this.state.AdditionalShippingInformationString.trim() == '')
+          //  {
+          //   Toast.show('Please make sure all fields are filled in correctly.', Toast.LONG)
+          //   this.setState({
+          //     errAdditionalShippingInformation : true,
+          //   })
+          //  }
           //  else if (this.state.LoadingAddressString.trim() == '')
           //  {
           //   Toast.show('Please make sure all fields are filled in correctly.', Toast.LONG)
@@ -1347,18 +1366,18 @@ _onPressBotton1Handler = async () => {
               AdditionalShippingInformationString : value,
             })
 
-            if (value.trim() == '')
-            {
-              this.setState({
-                errAdditionalShippingInformation : true,
-              })
-            }
-            else
-            {
-              this.setState({
-                errAdditionalShippingInformation : false,
-              })
-            }
+            // if (value.trim() == '')
+            // {
+            //   this.setState({
+            //     errAdditionalShippingInformation : true,
+            //   })
+            // }
+            // else
+            // {
+            //   this.setState({
+            //     errAdditionalShippingInformation : false,
+            //   })
+            // }
 
           }
 
@@ -1746,18 +1765,18 @@ _onPressBotton1Handler = async () => {
               SiteContactNameString : value,
             })
 
-            if (value.trim() == '')
-            {
-              this.setState({
-                errSiteContactName : true,
-              })
-            }
-            else
-            {
-              this.setState({
-                errSiteContactName : false,
-              })
-            }
+            // if (value.trim() == '')
+            // {
+            //   this.setState({
+            //     errSiteContactName : true,
+            //   })
+            // }
+            // else
+            // {
+            //   this.setState({
+            //     errSiteContactName : false,
+            //   })
+            // }
 
           }
 
@@ -1767,18 +1786,18 @@ _onPressBotton1Handler = async () => {
               SiteContactTelnoString : value,
             })
 
-            if (value.trim() == '')
-            {
-              this.setState({
-                errSiteContactTelNumber : true,
-              })
-            }
-            else
-            {
-              this.setState({
-                errSiteContactTelNumber : false,
-              })
-            }
+            // if (value.trim() == '')
+            // {
+            //   this.setState({
+            //     errSiteContactTelNumber : true,
+            //   })
+            // }
+            // else
+            // {
+            //   this.setState({
+            //     errSiteContactTelNumber : false,
+            //   })
+            // }
 
           }
 
@@ -2072,7 +2091,7 @@ else
 
           </View>
           </SafeAreaView>
-          <ScrollView nestedScrollEnabled={true} horizontal={false}>
+          <ScrollView nestedScrollEnabled={true} horizontal={false} contentContainerStyle={{paddingBottom: this.state.keyboardState == 'opened' ? 150 : 0}}>
           
           <Text style={{fontFamily: 'BebasNeuePro-Middle', fontSize: 29.6, marginTop: 45, color: '#4387bb', marginLeft: 24, marginBottom: 8}}>New Booking Continued</Text>
           
