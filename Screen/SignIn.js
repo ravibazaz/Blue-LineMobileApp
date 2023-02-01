@@ -267,8 +267,20 @@ else
               onPress={this._onPressBotton1Handler.bind(this)}
             />
           </View>
+          <TouchableOpacity style={{
+        marginTop: 20,
+        alignSelf: 'flex-end',
+        marginRight: 20
+    }}
+                onPress={() => this.props.navigation.navigate('ForgotPasswordPage')}>
+          <Text style={{
+        color: '#1A1919',
+        fontSize: 23,
+        fontFamily: 'BebasNeuePro-Middle',
+    }}>{'Forgot Password?'}</Text>
+    </TouchableOpacity>
 
-
+          {/* 1A1919 */}
           </ScrollView>
 
           

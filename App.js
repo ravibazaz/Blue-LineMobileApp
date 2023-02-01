@@ -15,6 +15,7 @@ import LoginPage from './Screen/Login';
 import HowToUsePage from './Screen/HowToUse';
 import OfficeContactsPage from './Screen/OfficeContacts';
 import FAQsPage from './Screen/FAQs';
+import ForgotPasswordPage from './Screen/ForgotPassword';
 import ProfilePage from './Screen/Profile';
 import NewOrderPage from './Screen/NewOrder';
 import ConfirmOrderPage from './Screen/ConfirmOrder';
@@ -133,7 +134,13 @@ const HomeStackScreenForDonerOnly = ({navigation}) => (
         headerShown: false,
       }}
     />
-    
+    <HomeStack_nav.Screen
+      name="ForgotPasswordPage"
+      component={ForgotPasswordPage}
+      options={{
+        headerShown: false,
+      }}
+    />
     <HomeStack_nav.Screen
       name="NewOrder1Page"
       component={NewOrder1Page}
@@ -299,6 +306,12 @@ const AuthStackScreen = () => (
         headerShown: false,
         headerTitle: 'Orders'
       }}/>
+      
+<AuthStack.Screen name="ForgotPasswordPage" component={ForgotPasswordPage}  options={{
+        headerShown: false,
+        headerTitle: 'ForgotPassword'
+      }}/>
+
       
       <AuthStack.Screen name="NewOrder1Page" component={NewOrder1Page}  options={{
         headerShown: false,

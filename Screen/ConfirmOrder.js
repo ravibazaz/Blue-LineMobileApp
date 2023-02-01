@@ -7,6 +7,7 @@ import CheckBox from '@react-native-community/checkbox';
 import Toast from 'react-native-simple-toast';
 import Modal from "react-native-modal";
 import UrlUtil from '../utils/ConfigApp';
+import {StackActions} from '@react-navigation/native';
 export default class Profile extends Component {
   constructor(props) {
     super(props);
@@ -377,7 +378,9 @@ if (this.state.checkNavigationDone == false)
               this.setState({isSuccessTextShow: true})
 
               setTimeout(()=>{
-                this.props.navigation.replace('LoginPage')
+                this.props.navigation.navigate('LoginPage')
+                // this.props.navigation.dispatch(StackActions.replace('LoginPage'));
+                // this.props.navigation.replace('LoginPage')
                 // this.props.navigation.replace('LoginPage') //ParcelDetailsPage //DashPage
             },2000)
               // this.props.navigation.replace('LoginPage') //ParcelDetailsPage //DashPage
@@ -824,7 +827,7 @@ console.error(error);
 
 { index == 3 && <Text style={{fontFamily: 'BebasNeuePro-Middle',
     color: '#000',padding: 4, fontSize: 29.6, color: 'black'
-  }}>{'Is the cargo Hazadeous : '+ this.state.CargoHazadeousString}</Text> }
+  }}>{'Is the cargo Hazardous : '+ this.state.CargoHazadeousString}</Text> }
 
 { index == 4 && <Text style={{fontFamily: 'BebasNeuePro-Middle',
     color: '#000',padding: 4, fontSize: 29.6, color: 'black'

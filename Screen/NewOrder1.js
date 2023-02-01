@@ -103,8 +103,7 @@ export default class Profile extends Component {
         {label1: 'AM', value1: 'AM'},
         {label1: 'PM', value1: 'PM'},
       ],
-      itemsDestinationCountry: [
-      ],
+      itemsDestinationCountry: [],
       itemsDestinationPort: [
       ],
       itemList:  [
@@ -233,6 +232,7 @@ itemListForDrawer:  [
   .then(res => {
     console.log('token is: ', this.state.tokenString)
        this.fetchContainerSizeAndType()
+       this.setOpenDestinationCountry1()
   });
 
   this.props.navigation.addListener('blur', () => {
@@ -359,8 +359,12 @@ setOpenAgreedPrice= (openAgreedPrice) => {
 }
 
 setOpenDestinationCountry= (openDestinationCountry) => {
+      this.setState({
+        openDestinationCountry
+      })  
+}
 
-  console.log('setOpenDestinationCountry called')
+setOpenDestinationCountry1 = () => {
 
   this.setState({
     loading : true,
@@ -390,8 +394,14 @@ setOpenDestinationCountry= (openDestinationCountry) => {
       this.setState({
         itemsDestinationCountry : responseJson.data,
         loading : false,
-        openDestinationCountry
-      })
+    }, () => {
+      if (this.props.route.params) 
+      {
+        this.fetchOrderDetails();
+      }
+    });
+
+      
 
     }
       
@@ -404,9 +414,6 @@ setOpenDestinationCountry= (openDestinationCountry) => {
       alert('Netwok request failed. Please check your internet connection and try again');
       console.error(error);
     });
-
- 
-
   
 }
 
@@ -512,12 +519,92 @@ else
 
 }
 
+setOpenDestinationPort1= (id, port_name) => {
+  if (this.state.DestinationCountryIDString == '')
+  {
+    alert('Please select a Destination Country first');
+  }
+  else
+  {
+
+    fetch(UrlUtil.BASE_URL+'portlist', {
+      method: 'POST', //Request Type
+      headers: {
+        // 'Authorization': bearer,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        country_id: this.state.DestinationCountryIDString,
+      }),
+      })
+      .then((response) => response.json())
+      .then((responseJson) => {
+        console.log('DestinationCountry response: ',responseJson);
+      
+      if (responseJson.success == false)
+      {
+       
+      }
+      else
+      {
+  
+        if (responseJson.data.length == 1)
+        {
+          this.setState({
+            itemsDestinationPort : responseJson.data,
+            portDropdownHeight: 85,
+          })
+        }
+        else if (responseJson.data.length == 2)
+        {
+          this.setState({
+            itemsDestinationPort : responseJson.data,
+            portDropdownHeight: 130,
+          })
+        }
+        else if (responseJson.data.length == 3)
+        {
+          this.setState({
+            itemsDestinationPort : responseJson.data,
+            portDropdownHeight: 165,
+          })
+        }
+        else if (responseJson.data.length == 4)
+        {
+          this.setState({
+            itemsDestinationPort : responseJson.data,
+            portDropdownHeight: 220,
+          })
+        }
+        else
+        {
+          this.setState({
+            itemsDestinationPort : responseJson.data,
+            portDropdownHeight: 240,
+          })
+        }
+        
+        this.setState({DestinationPortIDString: id, DestinationPortString: port_name})
+  
+      }
+        
+      })
+      //If response is not in json then in error
+      .catch((error) => {
+        console.error(error);
+      });
+  
+  
+  }
+  
+  }
+
  setValue = (callback) => {
 
    console.log('set value isssss1', callback)
 
    this.setState(state => ({
-     value0: callback(state.value0)
+    containerSizeIDString: callback(state.containerSizeIDString)
    }));
  }
 
@@ -557,7 +644,7 @@ setValueAgreedPrice = (callback) => {
   console.log('set ContainerPurchase value isssss1', callback)
 
   this.setState(state => ({
-    containerPurchaseString: callback(state.value0)
+    containerPurchaseString: callback(state.containerPurchaseString)
   }));
 }
 
@@ -566,21 +653,21 @@ setValueCargohazadeous = (callback) => {
   console.log('set ContainerPurchase value isssss1', callback)
 
   this.setState(state => ({
-    CargoHazadeousString: callback(state.value0)
+    CargoHazadeousString: callback(state.CargoHazadeousString)
   }));
 }
 
 setValueDestinationCountry = (callback) => {
 
   this.setState(state => ({
-    DestinationCountryVString: callback(state.value0)
+    DestinationCountryIDString: callback(state.DestinationCountryIDString)
   }));
 }
 
 setValueDestinationPort = (callback) => {
 
   this.setState(state => ({
-    DestinationPortVString: callback(state.value0)
+    DestinationPortIDString: callback(state.DestinationPortIDString)
   }));
 }
 
@@ -2131,7 +2218,7 @@ schema={{
   value: 'id'
 }}
         open={this.state.open}
-        value={this.state.value0}
+        value={this.state.containerSizeIDString}
         items={this.state.items}
         setOpen={this.setOpen}
         setValue={this.setValue}
@@ -2145,6 +2232,8 @@ schema={{
           this.setState({errContainerSize: false, containerSizeIDString: value})
         }}
       />
+
+
 
 {this.state.errContainerSize && <Text style={{
         marginTop: 3,
@@ -2266,7 +2355,7 @@ schema={{
 
 <Text style={{fontFamily: 'BebasNeuePro-Middle',
   color: '#000',padding: 4, fontSize: 26.4, color: 'black', marginTop: 15
-}}>{'Is the Cargo Hazadeous'}</Text>
+}}>{'Is the Cargo Hazardous'}</Text>
 
 <DropDownPicker
 containerProps={{
@@ -2368,12 +2457,9 @@ schema={{
         setValue={this.setValueHaulage}
         setItems={this.setItemsHaulage}
         onSelectItem={(item) => {
-          console.log(item);
+          console.log('onSelectItem::: ',item);
           this.setState({haulageValueString: item.label1})
-        }}
-        onChangeValue={(value) => {
-          console.log('onChangeValue1: ',value);
-          this.setState({errHaulageType: false, isAgreed: false, haulageIDString: value, Collection_Time_String: '',
+          this.setState({errHaulageType: false, isAgreed: false, haulageIDString: item.value1, Collection_Time_String: '',
           Loading_Date_String: '', Loading_Time_String: '', LoadingAddressString: '', Delivery_Date_String: '',
           Delivery_Time_String: '',  Company_String: '', Address1_String: '', Address2_String: '',
           City_String: '', Country_String: '', PostalCode_String: '', Collection_Date_String: '',
@@ -2381,7 +2467,11 @@ schema={{
           Address2_String_LA: '', City_String_LA: '', Country_String_LA: '', PostalCode_String_LA: '',
         })
         }}
+        onChangeValue={(value) => {
+          console.log('onChangeValue1: ',value);
+        }}
       />
+
 {this.state.errHaulageType && <Text style={{
         marginTop: 3,
         color: 'red',
@@ -3505,7 +3595,6 @@ color: '#000',padding: 4, fontSize: 26.4, color: 'black', marginTop: 15
 <DropDownPicker
 containerProps={{
   height: this.state.openDestinationCountry === true ? 240 : null,
-  
 }}
 listMode="SCROLLVIEW"
         scrollViewProps={{
@@ -3530,7 +3619,7 @@ schema={{
   value: 'id'
 }}
         open={this.state.openDestinationCountry}
-        value={this.state.DestinationCountryVString}
+        value={this.state.DestinationCountryIDString}
         items={this.state.itemsDestinationCountry}
         setOpen={this.setOpenDestinationCountry}
         setValue={this.setValueDestinationCountry}
@@ -3538,14 +3627,11 @@ schema={{
         onSelectItem={(item) => {
           console.log('onSelectItem: ',item);
           this.setState({DestinationCountryString: item.country_name})
-
+          this.setState({DestinationPortString: '', DestinationPortIDString: '', itemsDestinationPort: []})
+          this.setState({errDestinationCountry: false, DestinationCountryIDString: item.id})
         }}
         onChangeValue={(value) => {
-          console.log('onChangeValue: ',value);
-
-          this.setState({DestinationPortString: '', DestinationPortIDString: '', itemsDestinationPort: []})
-          this.setState({errDestinationCountry: false, DestinationCountryIDString: value})
-          
+          console.log('onChangeValue Destination Country: ',value);
         }}
       />
 
@@ -3609,19 +3695,16 @@ schema={{
   value: 'id'
 }}
         open={this.state.openDestinationPort}
-        value={this.state.DestinationPortVString}
+        value={this.state.DestinationPortIDString}
         items={this.state.itemsDestinationPort}
         setOpen={this.setOpenDestinationPort}
         setValue={this.setValueDestinationPort}
         setItems={this.setItems}
         onSelectItem={(item) => {
-          console.log('onSelectItem: ',item);
-          this.setState({DestinationPortString: item.port_name})
+          this.setState({DestinationPortString: item.port_name, errDestinationPort: false, DestinationPortIDString: item.id})
         }}
         onChangeValue={(value) => {
-          console.log('onChangeValue: ',value);
-          this.setState({errDestinationPort: false, DestinationPortIDString: value})
-          
+          console.log('onChangeValue DestinationPortVString: ',value);          
         }}
       />
 
@@ -4097,6 +4180,144 @@ height: '100%'
       
     );
   }
+
+  fetchOrderDetails = async () => {
+    var bearer = 'Bearer ' + this.state.tokenString;
+    fetch(UrlUtil.BASE_URL + 'get-booking-details', {
+      method: 'POST', //Request Type
+      headers: {
+        Authorization: bearer,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        id: this.props.route.params.record_id,
+      }),
+    })
+      .then(response => response.json())
+      //If response is in json then in success
+      .then(responseJson => {
+        // alert(JSON.stringify(responseJson));
+        console.log('fetchOrderDetails response: ', responseJson, responseJson.data[0].destinationcountry);
+  
+        if (responseJson.success == false) {
+        } else {
+    
+          var delivery_address = responseJson.data[0].customdeliveryaddress;
+          var loading_address = responseJson.data[0].customloadingaddress;
+  
+  
+  
+          if (responseJson.data[0].haulage_type == 'type1') {
+            this.setState({
+              haulageValueString: 'Sidelifter (lifted to ground): Wait & load',
+              LoadingAddressString: responseJson.data[0].loading_address,
+              Company_String_LA: loading_address.company,
+              Address1_String_LA: loading_address.address1,
+              Address2_String_LA: loading_address.address2,
+              City_String_LA: loading_address.city,
+              Country_String_LA: loading_address.county,
+              PostalCode_String_LA: loading_address.post_code,
+            });
+          } else if (responseJson.data[0].haulage_type == 'type2') {
+            console.log('dasdaskdhaskjdhajksd===', delivery_address.company)
+            this.setState({
+              haulageValueString:
+                'Sidelifter (lifted to ground): Drop & Collect',
+              DeliveryAddressString: responseJson.data[0].delivery_address,
+              Company_String: delivery_address.company,
+              Address1_String: delivery_address.address1,
+              Address2_String: delivery_address.address2,
+              City_String: delivery_address.city,
+              Country_String: delivery_address.county,
+              PostalCode_String: delivery_address.post_code,
+            });
+          } else if (responseJson.data[0].haulage_type == 'type3') {
+            this.setState({
+              haulageValueString: 'Standard (on trailer): Wait & load',
+              LoadingAddressString: responseJson.data[0].loading_address,
+              Company_String_LA: loading_address.company,
+              Address1_String_LA: loading_address.address1,
+              Address2_String_LA: loading_address.address2,
+              City_String_LA: loading_address.city,
+              Country_String_LA: loading_address.county,
+              PostalCode_String_LA: loading_address.post_code,
+            });
+          } else if (responseJson.data[0].haulage_type == 'type4') {
+            this.setState({
+              haulageValueString:
+                'Standard (on trailer): Trailer Drop & Collect',
+              DeliveryAddressString: responseJson.data[0].delivery_address,
+              Company_String: delivery_address.company,
+              Address1_String: delivery_address.address1,
+              Address2_String: delivery_address.address2,
+              City_String: delivery_address.city,
+              Country_String: delivery_address.county,
+              PostalCode_String: delivery_address.post_code,
+            });
+          } else if (responseJson.data[0].haulage_type == 'type5') {
+            this.setState({
+              haulageValueString: 'Standard (on trailer): Quay to Quay',
+            });
+          } else if (responseJson.data[0].haulage_type == 'type6') {
+            this.setState({haulageValueString: 'Other'});
+          } else {
+          }
+  
+          if (responseJson.data[0].container_purchase == 'No' || responseJson.data[0].container_purchase == 'NO')
+            {
+              this.setState({containerPurchaseString: 'NO'})
+            }
+            else
+            {
+              this.setState({containerPurchaseString: 'YES'})
+            }
+  
+            if (responseJson.data[0].is_the_cargo_hazadeous == 'No' || responseJson.data[0].is_the_cargo_hazadeous == 'NO')
+            {
+              this.setState({CargoHazadeousString: 'NO'})
+            }
+            else
+            {
+              this.setState({CargoHazadeousString: 'YES'})
+            }
+
+
+            this.setState({
+            DestinationCountryIDString: responseJson.data[0].destinationcountry.id,
+            DestinationCountryString: responseJson.data[0].destinationcountry.country_name,
+          }, () => {
+            if (this.props.route.params) 
+            {
+              this.setOpenDestinationPort1(responseJson.data[0].destinationport.id, responseJson.data[0].destinationport.port_name);
+            }
+          });
+  
+          this.setState({
+            companyIDString: responseJson.data[0].ref,
+            containerSizeIDString: responseJson.data[0].containersizetype.id,
+            containerSizeValueString:
+              responseJson.data[0].containersizetype.type,
+              valueHaulage: responseJson.data[0].haulage_type,
+              haulageIDString: responseJson.data[0].haulage_type,
+            cargoTypeString: responseJson.data[0].cargo_type,
+            AgreedPriceString: responseJson.data[0].agreed_price,
+            TotalCargoWeightString: responseJson.data[0].total_cargo_weight,
+            SiteContactNameString: responseJson.data[0].site_contact_name,
+            SiteContactTelnoString:
+              responseJson.data[0].site_contact_tel_number,
+            AdditionalShippingInformationString:
+              responseJson.data[0].additional_shipping_information,
+          });
+        }
+      })
+      //If response is not in json then in error
+      .catch(error => {
+        alert(
+          'Netwok request failed. Please check your internet connection and try again',
+        );
+        console.error(error);
+      });
+  };
 
 }
 

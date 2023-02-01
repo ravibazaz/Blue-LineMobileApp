@@ -282,6 +282,20 @@ else
 
     
     }
+    gotToNextScreen = () => 
+    {
+      if (this.props.route.params) 
+      {
+    console.log('params::: ',this.props.route.params)
+    this.props.navigation.navigate('NewOrder1Page',{reorderFlag: true, record_id: this.props.route.params.record_id})
+      }
+      else
+      {
+        console.log('no params::: ')
+        this.props.navigation.navigate('NewOrder1Page')
+      }
+      
+    }
   render() {
 
    const { open, value, items } = this.state;
@@ -382,7 +396,7 @@ placeholder="Select category"
           </View>
           
   
-          <TouchableOpacity onPress ={() => this.props.navigation.navigate('NewOrder1Page')} 
+          <TouchableOpacity onPress ={() => this.gotToNextScreen()} 
           style={{flexDirection: 'row', justifyContent: 'flex-end', position: 'absolute',
           height: 55,bottom:80, alignSelf: 'flex-end', width: '30%'
 }}>

@@ -186,6 +186,9 @@ if (responseJson.success == false)
 }
 else
 {
+
+  console.log('item list responseJson.data: ', responseJson.data)
+
 this.setState({
   itemList : responseJson.data,
 })
