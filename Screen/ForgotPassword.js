@@ -1,6 +1,5 @@
 import React,{Component,useEffect} from "react";
-import {StatusBar, Modal, ActivityIndicator, FlatList, TouchableWithoutFeedback, Image, View,StyleSheet,SafeAreaView,Text,Dimensions } from "react-native";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import {StatusBar, Modal, ActivityIndicator, FlatList, TouchableWithoutFeedback, Image, View,StyleSheet,SafeAreaView,Text,Dimensions, TouchableOpacity } from "react-native";
 import { WebView } from 'react-native-webview';
 import Modal1 from "react-native-modal";
 export default class HowToUse extends Component {
@@ -31,10 +30,12 @@ render()
 <SafeAreaView>
     <View style={styles.dashboard_main_headers}>
         <View style={styles.dashboard_headers_Menu_View}>
-          <TouchableOpacity
-            onPress={() => this.props.navigation.goBack()}>
+          <TouchableOpacity style={styles.menu_icon}
+            onPress={() => this.props.navigation.goBack(null)}>
             <Image
-              style={styles.menu_icon}
+              style={{width: 30,
+                height: 30,
+                tintColor: '#4387bb',}}
               source={require('../Images/arrow.png')}
             />
           </TouchableOpacity>
@@ -114,14 +115,9 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   menu_icon: {
-    width: 30,
-    height: 30,
     marginStart: 4,
      marginTop: 4,
     backgroundColor: 'transparent',
-    alignSelf: 'center',
-    tintColor: '#4387bb',
-    
   },
   create_icon: {
     width: 30,

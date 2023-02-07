@@ -1,6 +1,5 @@
 import React,{Component,useEffect} from "react";
-import {StatusBar, Modal, ActivityIndicator, AppState, FlatList, AsyncStorage, TouchableWithoutFeedback, Image, ImageBackground, View,StyleSheet,SafeAreaView,ScrollView,Text,Dimensions } from "react-native";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import {StatusBar, TouchableOpacity, Modal, ActivityIndicator, AppState, FlatList, AsyncStorage, TouchableWithoutFeedback, Image, ImageBackground, View,StyleSheet,SafeAreaView,ScrollView,Text,Dimensions } from "react-native";
 import { WebView } from 'react-native-webview';
 import Modal1 from "react-native-modal";
 import UrlUtil from '../utils/ConfigApp';

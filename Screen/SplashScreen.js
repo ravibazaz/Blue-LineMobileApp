@@ -8,34 +8,50 @@ export default class SplashScreen extends Component{
 
  
   async componentWillMount(){
-
-    
-
-      let userLoggedInOrNotFlagString = await AsyncStorage.getItem('status');
-
-      if (userLoggedInOrNotFlagString == 'true') //'true'
-   {
-  setTimeout(()=>{
-    this.props.navigation.navigate('SignInPage') //ParcelDetailsPage //DashPage
-},2000)
-console.disableYellowBox = true; 
-}
-else
-{
-  this.props.navigation.navigate('SignInPage')
-    //  this.props.navigation.replace('LoginPage'); 
-      
-      }
+    this.LoginReg();
     }
+     LoginReg = async () => {
 
+      var token = await AsyncStorage.getItem('token');
+  
+      let dispatchTimeString = await AsyncStorage.getItem('dispatchTime');
+          var msDiff =new Date().getTime() - new Date(dispatchTimeString).getTime();    //Future date - current date
+           var timeTillNow = Math.floor((msDiff/1000)/60);//Math.floor(msDiff / (1000 * 60 * 60 * 24));
+  
+          console.log("dispatchTimeString is: ", dispatchTimeString, timeTillNow);
+  
+          if (timeTillNow > 30)
+          {
+            this.props.navigation.replace('SignInPage')
+          }
+          else
+          {
+            setTimeout(() => 
+            {
+              if (token == null || token == undefined) {
+                 this.props.navigation.replace('SignInPage')
+                //  navigation.navigate('LoginPage'); // Dashboard_donation // StartCampaign  
+              } else {
+                this.props.navigation.replace('LoginPage');
+              }
+            }, 2000);
+          }  
+    };
   render(){
     return(
-        <ImageBackground source={require('../Images/splash2.jpg')} style= {styles.container} >
-            <StatusBar
-                backgroundColor="#090915"
-                barStyle="light-content"
-            />
-        </ImageBackground>
+      <ImageBackground source={require('../Images/splash-screen.jpg')} style= {{
+        flex: 1,
+         width: null,
+        height: null,
+        resizeMode: 'cover',
+        justifyContent: 'center',
+  
+      }} >
+      <StatusBar
+          backgroundColor="#090915"
+          barStyle="light-content"
+      />
+  </ImageBackground>
     );
   }
 }
