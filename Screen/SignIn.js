@@ -23,8 +23,7 @@ export default class Profile extends Component {
   }
   componentDidMount = async () => 
   {
-    
-console.log('url is', UrlUtil.BASE_URL)
+// console.log('url is', UrlUtil.BASE_URL)
 
     if (Platform.OS === 'ios') {
       KeyboardManager.setEnable(true);
@@ -270,7 +269,8 @@ else
           <TouchableOpacity style={{
         marginTop: 20,
         alignSelf: 'flex-end',
-        marginRight: 20
+        marginRight: 20,
+        paddingBottom: 40
     }}
                 onPress={() => this.props.navigation.navigate('ForgotPasswordPage')}>
           <Text style={{

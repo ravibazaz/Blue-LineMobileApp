@@ -331,7 +331,7 @@ else
           </View>
 
           </SafeAreaView>
-          <View style={{backgroundColor: 'null'}}>
+          <ScrollView style={{backgroundColor: 'null'}}>
           <Text style={{fontFamily: 'BebasNeuePro-Middle',fontSize: 46.2, marginTop: 45, color: '#4387bb', marginLeft: 24, marginBottom: 16}}>New Booking</Text>
 
           
@@ -393,7 +393,7 @@ placeholder="Select category"
 
 {/* outline_arrow_right_alt_black_48.png */}
 
-          </View>
+          </ScrollView>
           
   
           <TouchableOpacity onPress ={() => this.gotToNextScreen()} 

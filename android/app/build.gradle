@@ -143,11 +143,11 @@ android {
 
 
     defaultConfig {
-        applicationId "com.blueline"
+        applicationId "com.blueline_shipping"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 1
-        versionName "1.0"
+        versionCode 2
+        versionName "1.1"
     }
     splits {
         abi {
@@ -181,6 +181,10 @@ android {
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
         }
+    }
+
+    aaptOptions {
+        cruncherEnabled = false
     }
 
     // applicationVariants are e.g. debug, release
