@@ -16,6 +16,8 @@ import {
   Dimensions,
 } from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
+import SideMenuCommon from '../components/SideMenuCommon';
+import TabBarCommon from '../components/TabBarCommon';
 import DatePicker from 'react-native-date-picker';
 import AnimateLoadingButton from 'react-native-animate-loading-button';
 import CheckBox from '@react-native-community/checkbox';
@@ -195,7 +197,7 @@ export default class Profile extends Component {
     });
 
     this.focusListener = this.props.navigation.addListener('focus', () => {
-      this.setState({checkNavigationDone: false});
+      this.setState({checkNavigationDone: false, isModalVisible: false});
       this.checkAppState();
     });
   };
@@ -637,162 +639,18 @@ export default class Profile extends Component {
                 source={require('../Images/outline_arrow_right_alt_black_48.png')}></Image>
 </TouchableOpacity> */}
 
-        <View style={styles.footer}>
-          <View
-            style={{
-              flexDirection: 'row',
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}>
-            <View
-              style={{
-                flex: 1,
-                maxWidth: 414,
-                backgroundColor: null,
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-              }}>
-              <TouchableOpacity
-                onPress={() => this.props.navigation.navigate('LoginPage')}>
-                <View
-                  style={{
-                    marginLeft: 0,
-                    width: Dimensions.get('window').width / 3,
-                    marginTop: 0,
-                    height: 80,
-                    backgroundColor: 'null',
-                  }}>
-                  <View
-                    style={{
-                      position: 'absolute',
-                      top: 0,
-                      left: 0,
-                      right: 0,
-                      bottom: 0,
-                      justifyContent: 'center',
-                      alignItems: 'flex-start',
-                      marginStart: 18,
-                    }}>
-                    <Image
-                      style={{height: 30, width: 30, resizeMode: 'contain'}}
-                      source={require('../Images/Home.png')}></Image>
-                    <Text
-                      style={{
-                        fontFamily: 'BebasNeuePro-Middle',
-                        fontSize: 13.2,
-                        marginTop: 5,
-                        paddingLeft: 4,
-                      }}>
-                      Home
-                    </Text>
-                  </View>
-                </View>
-              </TouchableOpacity>
+<TabBarCommon screenName={'OrderDetails'}  
+navigation={this.props.navigation} />
 
-              <TouchableOpacity
-                onPress={() => this.props.navigation.navigate('NewOrderPage')}>
-                <View
-                  style={{
-                    marginLeft: 0,
-                    width: Dimensions.get('window').width / 3,
-                    marginTop: 0,
-                    height: 80,
-                  }}>
-                  <View
-                    style={{
-                      position: 'absolute',
-                      top: 0,
-                      left: 0,
-                      right: 0,
-                      bottom: 0,
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                    }}>
-                    <Image
-                      style={{height: 30, width: 30, resizeMode: 'contain'}}
-                      source={require('../Images/Create.png')}></Image>
-                    <Text
-                      style={{
-                        fontFamily: 'BebasNeuePro-Middle',
-                        fontSize: 13.2,
-                        marginTop: 5,
-                      }}>
-                      New Booking
-                    </Text>
-                  </View>
-                </View>
-              </TouchableOpacity>
-
-              <TouchableOpacity
-                onPress={() => this.props.navigation.navigate('ProfilePage')}>
-                <View
-                  style={{
-                    marginLeft: 0,
-                    width: Dimensions.get('window').width / 3,
-                    marginTop: 0,
-                    height: 80,
-                  }}>
-                  <View
-                    style={{
-                      position: 'absolute',
-                      top: 0,
-                      left: 0,
-                      right: 0,
-                      bottom: 0,
-                      justifyContent: 'center',
-                      alignItems: 'flex-end',
-                      marginEnd: 18,
-                    }}>
-                    <Image
-                      style={{height: 30, width: 30, resizeMode: 'contain'}}
-                      source={require('../Images/User.png')}></Image>
-                    <Text
-                      style={{
-                        fontFamily: 'BebasNeuePro-Middle',
-                        fontSize: 13.2,
-                        marginTop: 5,
-                        paddingRight: 3,
-                      }}>
-                      Profile
-                    </Text>
-                  </View>
-                </View>
-              </TouchableOpacity>
-            </View>
-          </View>
-        </View>
-
-        <Modal
-          isVisible={this.state.isModalVisible}
-          onBackdropPress={() => this.setState({isModalVisible: false})}
-          swipeDirection="left"
-          animationIn="slideInLeft"
-          animationOut="slideOutLeft"
-          onSwipeComplete={() => this.setState({isModalVisible: false})}>
-          <View
-            style={{
-              flex: 1,
-              width: '86%',
-              backgroundColor: '#c6cbdf',
-              marginTop: -20,
-              height: '100%',
-              marginLeft: -18,
-              marginBottom: -18,
-            }}>
-            <FlatList
-              keyboardDismissMode="none"
-              keyboardShouldPersistTaps="handled"
-              style={{
-                marginTop: 65,
-              }}
-              data={this.state.itemListForDrawer}
-              renderItem={this.renderHorizontalItem2}
-              keyExtractor={(item, index) => index}
-            />
-          </View>
-        </Modal>
+        <SideMenuCommon screenName={'OrderDetails'} isVisible={this.state.isModalVisible}  
+navigation={this.props.navigation} 
+handleModalVisible={this.handleModalVisible}
+/>
       </View>
     );
+  }
+  handleModalVisible = (value) => {
+    this.setState({ isModalVisible: value });
   }
   renderHorizontalItem = ({item, index}) => {
     return (
@@ -937,54 +795,7 @@ export default class Profile extends Component {
       </View>
     );
   };
-  renderHorizontalItem2 = ({item, index}) => {
-    return (
-      <TouchableOpacity
-        style={{
-          flex: 1,
-          marginTop: 10,
-          // backgroundColor: 'red',
-          width: '100%',
-          height: 50,
-          // backgroundColor: 'red'
-        }}
-        onPress={() => this.selectMenuItem(index)}>
-        <Text
-          style={{
-            paddingLeft: 13,
-            textAlignVertical: 'center',
-            justifyContent: 'center',
-            fontFamily: 'BebasNeuePro-Middle',
-            fontSize: 46.2,
-            color: 'black',
-          }}>
-          {item.a}
-        </Text>
-      </TouchableOpacity>
-    );
-  };
-  selectMenuItem = index => {
-    console.log('index: ', index);
 
-    this.setState({isModalVisible: false});
-
-    if (index == 0) {
-      this.props.navigation.navigate('ProfilePage');
-    } else if (index == 1) {
-      this.props.navigation.navigate('OrdersPage');
-    } else if (index == 2) {
-      this.props.navigation.navigate('HowToUsePage');
-    } else if (index == 3) {
-      this.props.navigation.navigate('OfficeContactsPage');
-    } else if (index == 4) {
-      this.props.navigation.navigate('FAQsPage');
-    } else if (index == 5) {
-      // AsyncStorage.clear();
-      // this.props.navigation.replace('SignInPage');
-
-      this.logoutApi();
-    }
-  };
   logoutApi = async () => {
     var bearer = 'Bearer ' + this.state.tokenString;
     fetch(UrlUtil.BASE_URL + 'logout', {

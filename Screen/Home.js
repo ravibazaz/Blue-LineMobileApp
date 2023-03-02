@@ -1,12 +1,8 @@
 import React,{ Component } from "react";
-import {StatusBar, AppState, ImageBackground, Modal, ActivityIndicator,  SafeAreaView, StyleSheet, FlatList,View,Text,Image, TouchableOpacity ,Alert,AsyncStorage} from 'react-native';
-import { ScrollView, TextInput } from "react-native-gesture-handler";
+import {StatusBar, AppState, TextInput, ImageBackground, Modal, ActivityIndicator,  SafeAreaView, StyleSheet, FlatList,View,Text,Image, TouchableOpacity ,Alert,AsyncStorage} from 'react-native';
 import LinearGradient from "react-native-linear-gradient";
 import { withOrientation } from "react-navigation";
 import API from '../services/api';
-
-    
-     
 
 export default class Home extends Component{
 
@@ -31,11 +27,6 @@ export default class Home extends Component{
   getListViewItem = (item) => {  
     Alert.alert(item.key);  
   }  
-    
- 
-
-
-
 
   Categorylist = async ()=> {
     this.setState({ progress: true})

@@ -2,6 +2,7 @@ import React,{Component,useEffect} from "react";
 import {StatusBar, Modal, ActivityIndicator, FlatList, TouchableWithoutFeedback, Image, View,StyleSheet,SafeAreaView,Text,Dimensions, TouchableOpacity } from "react-native";
 import { WebView } from 'react-native-webview';
 import Modal1 from "react-native-modal";
+import UrlUtil from '../utils/ConfigApp';
 export default class HowToUse extends Component {
 
 constructor(props)
@@ -47,7 +48,7 @@ render()
       </View>
       </SafeAreaView>
    <WebView
-   source={{ uri: 'https://project.makeitlive.info/bluelineapi/public/password/reset' }}
+   source={{ uri: UrlUtil.WEB_URL+'password/reset' }}
    onLoad={() => this.hideSpinner()}
    style={{ marginTop: 0, marginBottom:0 }}
  />

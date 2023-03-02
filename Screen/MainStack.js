@@ -15,6 +15,7 @@ import OrdersPage from '../Screen/Orders';
 import SignInPage from '../Screen/SignIn';
 import SplashScreen from '../Screen/SplashScreen';
 import TermsAndCondsForOrder from '../Screen/TermsAndCondsForOrder';
+import SideMenuCommon from '../components/SideMenuCommon';
 const Stack = createNativeStackNavigator();
 export default function MainStack(props) {
     return (
@@ -121,6 +122,14 @@ export default function MainStack(props) {
         headerShown: false,
       }}
     />
+ <Stack.Screen
+      name="SideMenuCommon"
+      component={SideMenuCommon}
+      options={{
+        headerShown: false,
+      }}
+    />
+
   </Stack.Navigator>
     </NavigationContainer>
     )

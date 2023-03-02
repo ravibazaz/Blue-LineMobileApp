@@ -1,6 +1,6 @@
 import React,{Component,useEffect} from "react";
-import {StatusBar,  AppState, Platform, FlatList, TouchableWithoutFeedback, AsyncStorage, Image, ImageBackground, View,StyleSheet,SafeAreaView,ScrollView,Text,Dimensions } from "react-native";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import {StatusBar,  AppState, Platform, FlatList, TouchableWithoutFeedback, TouchableOpacity, AsyncStorage, Image, ImageBackground, View,StyleSheet,SafeAreaView,ScrollView,Text,Dimensions } from "react-native";
+import SideMenuCommon from '../components/SideMenuCommon';
 import { WebView } from 'react-native-webview';
 import Modal from "react-native-modal";
 import Pdf from 'react-native-pdf';
@@ -40,7 +40,7 @@ componentDidMount = async () =>
   })
     
     this.focusListener = this.props.navigation.addListener('focus', () => {
-      this.setState({checkNavigationDone: false});
+      this.setState({checkNavigationDone: false, isModalVisible: false});
       this.checkAppState()
     })
       
@@ -171,86 +171,18 @@ trustAllCerts={false}
 
 <View style={{height: 8}}></View>
 
-
-
-<Modal isVisible={this.state.isModalVisible} 
-    onBackdropPress={() => this.setState({isModalVisible: false})}
-    swipeDirection="left"
-    animationIn = 'slideInLeft'
-    animationOut= 'slideOutLeft'
-    onSwipeComplete={() => this.setState({isModalVisible: false})} >
-        <View style={{ flex: 1 ,width: '86%', backgroundColor: '#c6cbdf', marginTop: -20,
-         height: '100%', marginLeft: -18, marginBottom: -18 }}>
-         <FlatList
-     keyboardDismissMode="none"
-      keyboardShouldPersistTaps='handled'
-      style={{
-        marginTop: 65,
-      }}
-      
-                        data={this.state.itemListForDrawer}
-                        renderItem={this.renderHorizontalItem1}
-                        keyExtractor={(item, index) => index}
-                    /> 
-         
-        </View>
-      </Modal>
+<SideMenuCommon screenName={'TermsAndConditions'} isVisible={this.state.isModalVisible}  
+navigation={this.props.navigation} 
+handleModalVisible={this.handleModalVisible}
+/>
 </View>
   );
 
 }
-renderHorizontalItem1 = ({ item, index }) => {
 
-  return (
-
-<TouchableWithoutFeedback style={{
-  flex:1, marginTop: 10,
-  // backgroundColor: 'red',
-  width: '100%',
-  height: 50,
-  // backgroundColor: 'red'
-
-}} onPress ={() => this.selectMenuItem(index)}>
-
-          <Text style={{paddingLeft: 13,textAlignVertical: 'center', justifyContent: 'center',
-          fontFamily: 'BebasNeuePro-Middle',fontSize: 46.2, color: 'black',}
-}>{item.a}</Text>
-          
-</TouchableWithoutFeedback>
-   )}
-   selectMenuItem = (index) =>{
-    console.log('index: ', index)
-
-    this.setState({isModalVisible: false})
-
-    if (index == 0)
-    {
-      this.props.navigation.navigate('ProfilePage')
-    }
-    else if (index == 1)
-    {
-      this.props.navigation.navigate('OrdersPage')
-    }
-    else if (index == 2)
-    {
-      this.props.navigation.navigate('HowToUsePage')
-    }
-    else if (index == 3)
-    {
-      this.props.navigation.navigate('OfficeContactsPage')
-    }
-    else if (index == 4)
-    {
-      this.props.navigation.navigate('FAQsPage')
-    }
-    else if (index == 5)
-    {
-      // AsyncStorage.clear();
-      // this.props.navigation.replace('SignInPage');
-      this.logoutApi()
-    }
-
-   }
+handleModalVisible = (value) => {
+    this.setState({ isModalVisible: value });
+  }
 
    logoutApi = async () => 
     {

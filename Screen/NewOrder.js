@@ -1,8 +1,9 @@
 import React,{Component, useState} from 'react';
 import { StatusBar,  AppState, View, Text, StyleSheet, AsyncStorage, FlatList, ScrollView, TouchableOpacity, SafeAreaView, Image, Dimensions } from 'react-native'
+import SideMenuCommon from '../components/SideMenuCommon';
+import TabBarCommon from '../components/TabBarCommon';
 import DropDownPicker from 'react-native-dropdown-picker';
 import DatePicker from 'react-native-date-picker'
-import Modal from "react-native-modal";
 import UrlUtil from '../utils/ConfigApp';
 import Toast from 'react-native-simple-toast';
 export default class Profile extends Component {
@@ -36,15 +37,6 @@ export default class Profile extends Component {
          {label: 'Banana1', value: 'banana1'}
        ],
        isModalVisible: false,
-
-itemListForDrawer:  [
-    {a: 'Profile'},
-    {a: 'Orders'},
-    {a: 'Terms & Conditions'},
-    {a: 'Office Contacts'},
-    {a: "Resources"},
-    {a: 'Logout'},
-  ],
       itemList:  [
          {a: 'London To Paris', b: '102',  c: '23.12.2022', d: 'Available Stock: 45'}, 
          {a: 'Manchester United to Paris', b: '107',  c: '24.12.2022', d: 'Available Stock: 100'},
@@ -80,7 +72,7 @@ itemListForDrawer:  [
   })
     
     this.focusListener = this.props.navigation.addListener('focus', () => {
-      this.setState({checkNavigationDone: false});
+      this.setState({checkNavigationDone: false, isModalVisible: false});
       this.checkAppState()
     })
       
@@ -405,137 +397,24 @@ justifyContent: 'center',  color: '#4387bb', marginTop: -4}}>Continue</Text>
 <Image style={{ height: 30, width: 30,resizeMode: 'contain', marginRight: 33, tintColor: '#4387bb', marginLeft: 5}}
                 source={require('../Images/arrow-06.png')}></Image>
 </TouchableOpacity>
-          <View style={styles.footer}>
-
-      <View style={{flexDirection:'row', alignItems: 'center', justifyContent: 'center'}}>
-            <View style={{flex:1, maxWidth: 414, backgroundColor: null, flexDirection:'row', justifyContent:'space-between'}}>
-              
-            <TouchableOpacity onPress ={() => this.props.navigation.navigate('LoginPage')}>
-            <View style={{ marginLeft: 0, width: Dimensions.get('window').width/3, marginTop: 0, height: 80, backgroundColor: 'null'}}>
-            <View style={{position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, justifyContent: 'center', alignItems: 'flex-start', marginStart: 18}}>
-            <Image style={{ height: 30, width: 30,resizeMode: 'contain', }}
-                source={require('../Images/Home.png')}></Image>
-                <Text style={{fontFamily: 'BebasNeuePro-Middle',fontSize: 13.2, marginTop: 5, paddingLeft: 4}}>Home</Text>
-</View>
-
-            
-             </View>
-             </TouchableOpacity>
-
-            
-                 
-
-            <View style={{ marginLeft: 0, width: Dimensions.get('window').width/3, marginTop: 0, height: 80}}>
-            <View style={{position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, justifyContent: 'center', alignItems: 'center'}}>
-            <Image style={{ height: 30, width: 30,resizeMode: 'contain', }}
-                source={require('../Images/plusicongrey.png')}></Image>
-                <Text style={{fontFamily: 'BebasNeuePro-Middle',fontSize: 13.2, marginTop: 5}}>New Booking</Text>
-</View>
-               </View>
-            
-            
-
-               
-                 
-            <TouchableOpacity onPress ={() => this.props.navigation.navigate('ProfilePage')}>
-            <View style={{ marginLeft: 0, width: Dimensions.get('window').width/3, marginTop: 0, height: 80}}>
-            <View style={{position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, justifyContent: 'center', alignItems: 'flex-end', marginEnd: 18}}>
-            <Image style={{ height: 30, width: 30,resizeMode: 'contain', }}
-                source={require('../Images/User.png')}></Image>
-                <Text style={{fontFamily: 'BebasNeuePro-Middle',fontSize: 13.2, marginTop: 5, paddingRight: 3}}>Profile</Text>
-</View>
-               </View>
-               </TouchableOpacity>
-            
-  
-  
-            </View>
-            </View>
-    </View>
+          
+<TabBarCommon screenName={'NewOrder'}  
+navigation={this.props.navigation} /> 
 
 
-    <Modal isVisible={this.state.isModalVisible} 
-    onBackdropPress={() => this.setState({isModalVisible: false})}
-    swipeDirection="left"
-    animationIn = 'slideInLeft'
-    animationOut= 'slideOutLeft'
-    onSwipeComplete={() => this.setState({isModalVisible: false})} >
-        <View style={{ flex: 1 ,width: '86%', backgroundColor: '#c6cbdf', marginTop: -20,
-         height: '100%', marginLeft: -18, marginBottom: -18 }}>
-         <FlatList
-     keyboardDismissMode="none"
-      keyboardShouldPersistTaps='handled'
-      style={{
-        marginTop: 65,
-      }}
-      
-                        data={this.state.itemListForDrawer}
-                        renderItem={this.renderHorizontalItem1}
-                        keyExtractor={(item, index) => index}
-                    /> 
-         
-        </View>
-      </Modal>
+    <SideMenuCommon screenName={'NewOrder'} isVisible={this.state.isModalVisible}  
+navigation={this.props.navigation} 
+handleModalVisible={this.handleModalVisible}
+/>
 
       </View>
       
-
-      
-
-     
-      
     );
   }
-  renderHorizontalItem1 = ({ item, index }) => {
+   handleModalVisible = (value) => {
+    this.setState({ isModalVisible: value });
+  }
 
-    return (
-  
-  <TouchableOpacity style={{
-    flex:1, marginTop: 10,
-    // backgroundColor: 'red',
-    width: '100%',
-    height: 50,
-    // backgroundColor: 'red'
-  
-  }} onPress ={() => this.selectMenuItem(index)}>
-  
-            <Text style={{paddingLeft: 13,textAlignVertical: 'center', justifyContent: 'center',
-            fontFamily: 'BebasNeuePro-Middle',fontSize: 46.2, color: 'black',}
-}>{item.a}</Text>
-            
-  </TouchableOpacity>
-     )}
-     selectMenuItem = (index) =>{
-      console.log('index: ', index)
-
-      this.setState({isModalVisible: false})
-
-      if (index == 0)
-      {
-        this.props.navigation.navigate('ProfilePage')
-      }
-      else if (index == 1)
-      {
-        this.props.navigation.navigate('OrdersPage')
-      }
-      else if (index == 2)
-      {
-        this.props.navigation.navigate('HowToUsePage')
-      }
-      else if (index == 3)
-      {
-        this.props.navigation.navigate('OfficeContactsPage')
-      }
-      else if (index == 4)
-      {
-        this.props.navigation.navigate('FAQsPage')
-      }
-      else if (index == 5)
-      {
-        this.logoutApi()
-      }
-
-     }
   renderHorizontalItem = ({ item, index }) => {
 
     return (

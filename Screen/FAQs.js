@@ -1,4 +1,6 @@
 import React,{Component,useEffect} from "react";
+import SideMenuCommon from '../components/SideMenuCommon';
+import TabBarCommon from '../components/TabBarCommon';
 import {StatusBar, TouchableOpacity, Modal, ActivityIndicator, AppState, FlatList, AsyncStorage, TouchableWithoutFeedback, Image, ImageBackground, View,StyleSheet,SafeAreaView,ScrollView,Text,Dimensions } from "react-native";
 import { WebView } from 'react-native-webview';
 import Modal1 from "react-native-modal";
@@ -46,7 +48,7 @@ componentDidMount = async () =>
   })
     
     this.focusListener = this.props.navigation.addListener('focus', () => {
-      this.setState({checkNavigationDone: false});
+      this.setState({checkNavigationDone: false, isModalVisible: false});
       this.checkAppState()
     })
       
@@ -225,80 +227,21 @@ render()
     </Modal>
      
 
-<View style={styles.footer}>
-      <View style={{flexDirection:'row', alignItems: 'center', justifyContent: 'center'}}>
-            <View style={{flex:1, maxWidth: 414, backgroundColor: null, flexDirection:'row', justifyContent:'space-between'}}>
-              
-            <TouchableOpacity onPress ={() => this.props.navigation.navigate('LoginPage')}>
-            <View style={{ marginLeft: 0, width: Dimensions.get('window').width/3, marginTop: 0, height: 80, backgroundColor: 'null'}}>
-            <View style={{position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, justifyContent: 'center', alignItems: 'flex-start', marginStart: 18}}>
-            <Image style={{ height: 30, width: 30,resizeMode: 'contain', }}
-                source={require('../Images/Home.png')}></Image>
-                <Text style={{fontFamily: 'BebasNeuePro-Middle',fontSize: 13.2, marginTop: 5, paddingLeft: 4}}>Home</Text>
-</View>
-
-            
-             </View>
-             </TouchableOpacity>
-
-             <TouchableOpacity onPress ={() => this.props.navigation.navigate('NewOrderPage')}>
-                 
-
-            <View style={{ marginLeft: 0, width: Dimensions.get('window').width/3, marginTop: 0, height: 80}}>
-            <View style={{position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, justifyContent: 'center', alignItems: 'center'}}>
-            <Image style={{ height: 30, width: 30,resizeMode: 'contain'}}
-                source={require('../Images/Create.png')}></Image>
-                <Text style={{fontFamily: 'BebasNeuePro-Middle',fontSize: 13.2, marginTop: 5}}>New Booking</Text>
-</View>
-               </View>
-            
-            </TouchableOpacity>
-
-               <TouchableOpacity onPress ={() => this.props.navigation.navigate('ProfilePage')}>
-                 
-
-            <View style={{ marginLeft: 0, width: Dimensions.get('window').width/3, marginTop: 0, height: 80}}>
-            <View style={{position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, justifyContent: 'center', alignItems: 'flex-end', marginEnd: 18}}>
-            <Image style={{ height: 30, width: 30,resizeMode: 'contain'}}
-                source={require('../Images/User.png')}></Image>
-                <Text style={{fontFamily: 'BebasNeuePro-Middle',fontSize: 13.2, marginTop: 5, paddingRight: 3}}>Profile</Text>
-</View>
-               </View>
-            
-            </TouchableOpacity>
-  
-  
-            </View>
-            </View>
-    </View>
-<Modal1 isVisible={this.state.isModalVisible} 
-    onBackdropPress={() => this.setState({isModalVisible: false})}
-    swipeDirection="left"
-    animationIn = 'slideInLeft'
-    animationOut= 'slideOutLeft'
-    onSwipeComplete={() => this.setState({isModalVisible: false})} >
-        <View style={{ flex: 1 ,width: '86%', backgroundColor: '#c6cbdf', marginTop: -20,
-         height: '100%', marginLeft: -18, marginBottom: -18 }}>
-         <FlatList
-     keyboardDismissMode="none"
-      keyboardShouldPersistTaps='handled'
-      style={{
-        marginTop: 65,
-      }}
-      
-                        data={this.state.itemListForDrawer}
-                        renderItem={this.renderHorizontalItem1}
-                        keyExtractor={(item, index) => index}
-                    /> 
-         
-        </View>
-      </Modal1>
+    <TabBarCommon screenName={'TermsAndConditions'}  
+navigation={this.props.navigation} />
+    <SideMenuCommon screenName={'Resources'} isVisible={this.state.isModalVisible}  
+navigation={this.props.navigation} 
+handleModalVisible={this.handleModalVisible}
+/>
 
 
 
 </View>
   );
 
+}
+handleModalVisible = (value) => {
+  this.setState({ isModalVisible: value });
 }
 renderHorizontalItem1 = ({ item, index }) => {
 
