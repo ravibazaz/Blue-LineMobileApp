@@ -2056,12 +2056,12 @@ City_String_LA: '', Country_String_LA: '', PostalCode_String_LA: ''})
       else
       {
         this.setState({
-          Company_String_LA: responseJson.data.compnay,
-          Address1_String_LA: responseJson.data.address1,
-          Address2_String_LA: responseJson.data.address2,
-          Country_String_LA: responseJson.data.county,
-          City_String_LA: responseJson.data.city,
-          PostalCode_String_LA: responseJson.data.post_code,
+          Company_String_LA: responseJson.data.compnay || '',
+          Address1_String_LA: responseJson.data.address1 || '',
+          Address2_String_LA: responseJson.data.address2 || '',
+          Country_String_LA: responseJson.data.county || '',
+          City_String_LA: responseJson.data.city || '',
+          PostalCode_String_LA: responseJson.data.post_code || '',
           errCompany_LA: false,
           errAddress1_LA: false,
           errAddress2_LA: false,
