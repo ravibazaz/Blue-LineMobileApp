@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-  package="com.blueline_shipping">
+  package="com.blueline_shipping_app">
 
     <uses-permission android:name="android.permission.INTERNET" />
 

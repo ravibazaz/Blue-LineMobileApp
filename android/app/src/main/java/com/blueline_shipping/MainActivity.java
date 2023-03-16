@@ -1,4 +1,4 @@
-package com.blueline_shipping;
+package com.blueline_shipping_app;
 
 import com.facebook.react.ReactActivity;
 import android.os.Bundle;

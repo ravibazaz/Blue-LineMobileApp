@@ -1,4 +1,4 @@
-package com.blueline_shipping;
+package com.blueline_shipping_app;
 
 import android.app.Application;
 import android.content.Context;

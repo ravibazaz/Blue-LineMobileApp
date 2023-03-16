@@ -143,7 +143,7 @@ android {
 
 
     defaultConfig {
-        applicationId "com.blueline_shipping"
+        applicationId "com.blueline_shipping_app"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 2
