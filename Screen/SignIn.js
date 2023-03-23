@@ -93,7 +93,6 @@ if (responseJson.success == false)
 }
 else
 {
-  AsyncStorage.setItem('userName',  responseJson.data.name);
   AsyncStorage.setItem('token',  responseJson.data.token);
   setTimeout(()=>{
     this.loadingButton.showLoading(false);
@@ -191,7 +190,7 @@ else
                 fontFamily: 'BebasNeuePro-Middle',
                 fontSize: 27
               }}
-              autoCapitalize={false}
+              autoCapitalize='none'
               textAlign={'center'}
               placeholder="User Name"
               placeholderTextColor={'black'}

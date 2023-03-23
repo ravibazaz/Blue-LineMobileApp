@@ -84,17 +84,17 @@ export default class Login extends Component {
 
   componentDidMount = async () => {
     this.checkAppState();
-    let userName = await AsyncStorage.getItem('userName');
-    this.setState({
-      userNameString: 'Welcome Back ' + userName,
-    });
+    // let userName = await AsyncStorage.getItem('userName');
+    // this.setState({
+    //   userNameString: 'Welcome Back ' + userName,
+    // });
 
     this.props.navigation.addListener('blur', () => {
       console.log('unMount calledddd');
       this.appStateSubscription.remove();
       this.setState({
         isHideMaskedView: true,
-        userNameString: 'Welcome Back ' + userName,
+        // userNameString: 'Welcome Back ' + userName,
       });
     });
 
@@ -110,6 +110,7 @@ export default class Login extends Component {
           this.setState({tokenString: value, loading: true});
         })
         .then(res => {
+          this.fetchProfileData()
           this.fetchOrderList();
         });
     });
@@ -122,6 +123,41 @@ export default class Login extends Component {
         this.fetchOrderList();
       });
   };
+
+  fetchProfileData = async () => 
+    {
+      var bearer = 'Bearer ' + this.state.tokenString;
+      fetch(UrlUtil.BASE_URL+'user', {
+method: 'GET', //Request Type
+headers: {
+  'Authorization': bearer,
+  'Content-Type': 'application/json',
+},
+})
+.then((response) => response.json())
+.then((responseJson) => {
+  console.log('user data response: ',responseJson);
+if (responseJson.success == false)
+{
+  alert('Netwok request failed. Please check your internet connection and try again');
+}
+else
+{
+  this.setState({
+    userNameString: 'Welcome Back ' + responseJson.data.name,
+  });
+  AsyncStorage.setItem('userData',  JSON.stringify(responseJson.data));
+}
+
+    
+})
+.catch((error) => {
+  alert('Netwok request failed. Please check your internet connection and try again');
+  console.error(error);
+});
+
+    
+    }
 
   logoutApi = async () => {
     AsyncStorage.getItem('token').then(value => {

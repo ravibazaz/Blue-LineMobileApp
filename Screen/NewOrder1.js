@@ -743,13 +743,18 @@ onChangeDateTimePicker = (date, flag) =>
 {
   Moment.locale('en');
     
-  console.log('value is1333=> ', String(Moment(date).format('DD-MM-yyyy')), flag)
+  console.log('value is1333=> ', String(Moment(date).format('DD-MM-yyyy')), flag, date)
 
   if (flag == 'Loading_Time')
   {
+         
+    const minutes = Math.round(date.getMinutes() / 15) * 15;
+    const roundedDate = new Date(date);
+    roundedDate.setMinutes(minutes);
+        
     this.setState({
        openDateTimePicker: false,
-      Loading_Time_String: String(Moment(date).format('h:mm a')),
+      Loading_Time_String: String(Moment(roundedDate).format('h:mm a')),
       errLoadingTime: false,
       
     })
@@ -776,9 +781,14 @@ onChangeDateTimePicker = (date, flag) =>
   }
   else if(flag == 'Delivery_Time')
   {
+
+    const minutes = Math.round(date.getMinutes() / 15) * 15;
+    const roundedDate = new Date(date);
+    roundedDate.setMinutes(minutes);
+
     this.setState({
        openDateTimePicker: false,
-      Delivery_Time_String: String(Moment(date).format('h:mm a')),
+      Delivery_Time_String: String(Moment(roundedDate).format('h:mm a')),
       errDeliveryTime: false,
       
     })
@@ -794,9 +804,14 @@ onChangeDateTimePicker = (date, flag) =>
   }
   else if(flag == 'Collection_Time')
   {
+
+    const minutes = Math.round(date.getMinutes() / 15) * 15;
+    const roundedDate = new Date(date);
+    roundedDate.setMinutes(minutes);
+
     this.setState({
        openDateTimePicker: false,
-      Collection_Time_String: String(Moment(date).format('h:mm a')),
+      Collection_Time_String: String(Moment(roundedDate).format('h:mm a')),
       errCollectionTime: false
     })
   }
@@ -1063,13 +1078,13 @@ _onPressBotton1Handler = async () => {
               errAddress1_LA : true,
             })
            }
-           else if (this.state.Address2_String_LA.trim() == '')
-           {
-            Toast.show('Please make sure all fields are filled in correctly.', Toast.LONG)
-            this.setState({
-              errAddress2_LA : true,
-            })
-           }
+          //  else if (this.state.Address2_String_LA.trim() == '')
+          //  {
+          //   Toast.show('Please make sure all fields are filled in correctly.', Toast.LONG)
+          //   this.setState({
+          //     errAddress2_LA : true,
+          //   })
+          //  }
            else if (this.state.City_String_LA.trim() == '')
            {
             Toast.show('Please make sure all fields are filled in correctly.', Toast.LONG)
@@ -1133,13 +1148,13 @@ _onPressBotton1Handler = async () => {
               errAddress1 : true,
             })
            }
-           else if (this.state.Address2_String.trim() == '')
-           {
-            Toast.show('Please make sure all fields are filled in correctly.', Toast.LONG)
-            this.setState({
-              errAddress2 : true,
-            })
-           }
+          //  else if (this.state.Address2_String.trim() == '')
+          //  {
+          //   Toast.show('Please make sure all fields are filled in correctly.', Toast.LONG)
+          //   this.setState({
+          //     errAddress2 : true,
+          //   })
+          //  }
            else if (this.state.City_String.trim() == '')
            {
             Toast.show('Please make sure all fields are filled in correctly.', Toast.LONG)
@@ -2119,12 +2134,12 @@ if (responseJson.success == false)
 else
 {
   this.setState({
-    Company_String: responseJson.data.compnay,
-    Address1_String: responseJson.data.address1,
-    Address2_String: responseJson.data.address2,
-    Country_String: responseJson.data.county,
-    City_String: responseJson.data.city,
-    PostalCode_String: responseJson.data.post_code,
+    Company_String: responseJson.data.compnay || '',
+    Address1_String: responseJson.data.address1 || '',
+    Address2_String: responseJson.data.address2 || '',
+    Country_String: responseJson.data.county || '',
+    City_String: responseJson.data.city || '',
+    PostalCode_String: responseJson.data.post_code || '',
     errCompany: false,
     errAddress1: false,
     errAddress2: false,
@@ -2179,7 +2194,7 @@ else
 
           </View>
           </SafeAreaView>
-          <ScrollView nestedScrollEnabled={true} horizontal={false} contentContainerStyle={{paddingBottom: this.state.keyboardState == 'opened' ? 150 : 0}}>
+          <ScrollView nestedScrollEnabled={true} horizontal={false} contentContainerStyle={{paddingBottom: Platform.OS === 'android' && this.state.keyboardState == 'opened' ? 150 : 0}}>
           
           <Text style={{fontFamily: 'BebasNeuePro-Middle', fontSize: 29.6, marginTop: 45, color: '#4387bb', marginLeft: 24, marginBottom: 8}}>New Booking Continued</Text>
           
@@ -4045,6 +4060,8 @@ placeholder="Select category"
 mode={this.state.modeDateTimePicker}
 maxDate={new Date("2040-12-31")}
         minDate={new Date(this.state.futureDateString)}
+// minDate={new Date("1980-12-31")}
+// maxDate={new Date(this.state.futureDateString)}
         value={this.state.date}
         minuteInterval={15}
         

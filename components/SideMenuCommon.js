@@ -19,6 +19,7 @@ export default class SideMenu extends Component {
               {a: 'Terms & Conditions'},
               {a: 'Office Contacts'},
               {a: "Resources"},
+              // {a: "Change Password"},
               {a: 'Logout'},
             ]
         };
@@ -182,7 +183,13 @@ export default class SideMenu extends Component {
         }
         else if (index == 5)
         {
+
           this.logoutApi()
+
+        }
+        else if (index == 6)
+        {
+          // this.logoutApi()
           
         }
   

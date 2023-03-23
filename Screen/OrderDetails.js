@@ -1,8 +1,6 @@
 import React, {Component, useState} from 'react';
 import {
-  Linking,
   AppState,
-  Platform,
   StatusBar,
   View,
   Text,
@@ -13,16 +11,10 @@ import {
   TouchableOpacity,
   SafeAreaView,
   Image,
-  Dimensions,
 } from 'react-native';
-import DropDownPicker from 'react-native-dropdown-picker';
 import SideMenuCommon from '../components/SideMenuCommon';
 import TabBarCommon from '../components/TabBarCommon';
-import DatePicker from 'react-native-date-picker';
-import AnimateLoadingButton from 'react-native-animate-loading-button';
-import CheckBox from '@react-native-community/checkbox';
 import Toast from 'react-native-simple-toast';
-import Modal from 'react-native-modal';
 import UrlUtil from '../utils/ConfigApp';
 export default class Profile extends Component {
   constructor(props) {
@@ -30,10 +22,6 @@ export default class Profile extends Component {
     this.state = {
       appState: AppState.currentState,
       checkNavigationDone: false,
-      open: true,
-      isAgreed: false,
-      value: 'fsdfdsf',
-      date: new Date(),
       tokenString: '',
       companyNameString: '',
       companyIDString: '',
@@ -69,113 +57,21 @@ export default class Profile extends Component {
       CargoHazadeousString: '',
 
       AdditionalShippingInformationString: '',
-
       Company_String: '',
       Address1_String: '',
       Address2_String: '',
       City_String: '',
       Country_String: '',
       PostalCode_String: '',
-
       Company_String_LA: '',
       Address1_String_LA: '',
       Address2_String_LA: '',
       City_String_LA: '',
       Country_String_LA: '',
       PostalCode_String_LA: '',
-
       containerSizeIDString: '',
-
       isSuccessTextShow: false,
-      items: [
-        {label: 'Apple', value: 'apple'},
-        {label: 'Banana', value: 'banana'},
-      ],
-
-      open1: false,
-      value1: 'fsdfdsf111',
-      items1: [
-        {label: 'Apple1', value: 'apple1'},
-        {label: 'Banana1', value: 'banana1'},
-      ],
-      itemList1: [
-        {
-          a: 'London To Paris',
-          b: '102',
-          c: '23.12.2022',
-          d: 'Available Stock: 45',
-        },
-        {
-          a: 'Manchester United to Paris',
-          b: '107',
-          c: '24.12.2022',
-          d: 'Available Stock: 100',
-        },
-        {
-          a: 'India To Paris',
-          b: '311',
-          c: '25.12.2022',
-          d: 'Available Stock: 134',
-        },
-        {a: 'ALPS', b: '102', c: '26.12.2022', d: 'Available Stock: 45'},
-        {a: 'ALPS', b: '107', c: '27.12.2022', d: 'Available Stock: 100'},
-        {a: 'ALPS', b: '311', c: '28.12.2022', d: 'Available Stock: 134'},
-        {a: 'ALPS', b: '102', c: '29.12.2022', d: 'Available Stock: 45'},
-        {a: 'ALPS', b: '107', c: '30.12.2022', d: 'Available Stock: 100'},
-        {a: 'ALPS', b: '311', c: '31.12.2022', d: 'Available Stock: 134'},
-        // {a: 'ALPS', b: '107',  c: '12.12.2022', d: 'Available Stock: 100'},
-      ],
-      itemList: [
-        {
-          a: 'London To Paris',
-          b: '102',
-          c: '23.12.2022',
-          d: 'Available Stock: 45',
-        },
-        {
-          a: 'Manchester United to Paris',
-          b: '107',
-          c: '24.12.2022',
-          d: 'Available Stock: 100',
-        },
-        {
-          a: 'India To Paris',
-          b: '311',
-          c: '25.12.2022',
-          d: 'Available Stock: 134',
-        },
-        {a: 'ALPS', b: '102', c: '26.12.2022', d: 'Available Stock: 45'},
-        {a: 'ALPS', b: '107', c: '27.12.2022', d: 'Available Stock: 100'},
-        {a: 'ALPS', b: '311', c: '28.12.2022', d: 'Available Stock: 134'},
-        {a: 'ALPS', b: '102', c: '29.12.2022', d: 'Available Stock: 45'},
-        {a: 'ALPS', b: '107', c: '30.12.2022', d: 'Available Stock: 100'},
-        {a: 'ALPS', b: '311', c: '31.12.2022', d: 'Available Stock: 134'},
-        {a: 'ALPS', b: '107', c: '12.12.2022', d: 'Available Stock: 100'},
-        {a: 'ALPS', b: '102', c: '29.12.2022', d: 'Available Stock: 45'},
-        {a: 'ALPS', b: '107', c: '30.12.2022', d: 'Available Stock: 100'},
-        {a: 'ALPS', b: '311', c: '31.12.2022', d: 'Available Stock: 134'},
-        {a: 'ALPS', b: '107', c: '12.12.2022', d: 'Available Stock: 100'},
-        {a: 'ALPS', b: '107', c: '30.12.2022', d: 'Available Stock: 100'},
-        {a: 'ALPS', b: '311', c: '31.12.2022', d: 'Available Stock: 134'},
-        {a: 'ALPS', b: '107', c: '12.12.2022', d: 'Available Stock: 100'},
-        {a: 'ALPS', b: '107', c: '12.12.2022', d: 'Available Stock: 100'},
-        {a: 'ALPS', b: '311', c: '31.12.2022', d: 'Available Stock: 134'},
-        {a: 'ALPS', b: '107', c: '12.12.2022', d: 'Available Stock: 100'},
-        {a: 'ALPS', b: '107', c: '30.12.2022', d: 'Available Stock: 100'},
-        {a: 'ALPS', b: '311', c: '31.12.2022', d: 'Available Stock: 134'},
-        {a: 'ALPS', b: '107', c: '12.12.2022', d: 'Available Stock: 100'},
-        {a: 'ALPS', b: '107', c: '12.12.2022', d: 'Available Stock: 100'},
-      ],
       isModalVisible: false,
-
-      itemListForDrawer: [
-        {a: 'Profile'},
-        {a: 'Orders'},
-        {a: 'Terms & Conditions'},
-        {a: 'Office Contacts'},
-        {a: 'Resources'},
-        {a: 'Logout'},
-      ],
     };
   }
   componentDidMount = async () => {
@@ -191,7 +87,6 @@ export default class Profile extends Component {
       });
 
     this.props.navigation.addListener('blur', () => {
-      console.log('unMount calledddd');
       this.setState({checkNavigationDone: true});
       this.appStateSubscription.remove();
     });
@@ -209,21 +104,15 @@ export default class Profile extends Component {
           this.state.appState.match(/inactive|background/) &&
           nextAppState === 'active'
         ) {
-          console.log('App has come to the foreground!');
-
           let dispatchTimeString = await AsyncStorage.getItem('dispatchTime');
-
           var msDiff =
-            new Date().getTime() - new Date(dispatchTimeString).getTime(); //Future date - current date
-          var timeTillNow = Math.floor(msDiff / 1000 / 60); //Math.floor(msDiff / (1000 * 60 * 60 * 24));
-
+            new Date().getTime() - new Date(dispatchTimeString).getTime();
+          var timeTillNow = Math.floor(msDiff / 1000 / 60);
           console.log(
             'dispatchTimeString is: ',
             dispatchTimeString,
             timeTillNow,
           );
-          // Toast.show('Current Time: '+String(new Date().getTime()) + 'dispatch time: '+
-          // String(new Date(dispatchTimeString).getTime()) +' dispatchTimeString: '+ dispatchTimeString + ' timeTillNow: ' + String(timeTillNow) + this.state.checkNavigationDone, Toast.LONG)
           if (timeTillNow > 30) {
             if (this.state.checkNavigationDone == false) {
               Toast.show(
@@ -244,22 +133,12 @@ export default class Profile extends Component {
           this.state.appState.match(/inactive|active/) &&
           nextAppState === 'background'
         ) {
-          // Dispatch current time here.
-
-          // AsyncStorage.setItem('dispatchTime', new Date().toLocaleString())
           AsyncStorage.setItem('dispatchTime', String(new Date()));
-
-          console.log('App has come to the background!');
         } else if (
           this.state.appState.match(/inactive|active/) &&
           nextAppState === 'inactive'
         ) {
-          // Dispatch current time here.
-
-          // AsyncStorage.setItem('dispatchTime', new Date().toLocaleString())
           AsyncStorage.setItem('dispatchTime', String(new Date()));
-
-          console.log('the app is closed');
         }
         this.setState({appState: nextAppState});
       },
@@ -268,7 +147,7 @@ export default class Profile extends Component {
   fetchOrderDetails = async () => {
     var bearer = 'Bearer ' + this.state.tokenString;
     fetch(UrlUtil.BASE_URL + 'get-booking-details', {
-      method: 'POST', //Request Type
+      method: 'POST',
       headers: {
         Authorization: bearer,
         'Content-Type': 'application/json',
@@ -278,49 +157,41 @@ export default class Profile extends Component {
       }),
     })
       .then(response => response.json())
-      //If response is in json then in success
       .then(responseJson => {
-        // alert(JSON.stringify(responseJson));
         console.log('fetchOrderDetails response: ', responseJson);
-
         if (responseJson.success == false) {
         } else {
-          // AsyncStorage.setItem('userData',  JSON.stringify(responseJson.data));
-
-          //console.log('delivery address: ', JSON.parse(responseJson.data[0].customdeliveryaddress))
-
-          //var delivery_address = JSON.parse(responseJson.data[0].customdeliveryaddress)
           var delivery_address = responseJson.data[0].customdeliveryaddress;
           var loading_address = responseJson.data[0].customloadingaddress;
 
           if (responseJson.data[0].haulage_type == 'type1') {
             this.setState({
               haulageValueString: 'Sidelifter (lifted to ground): Wait & load',
-              Loading_Time_String: responseJson.data[0].loading_time,
-              Loading_Date_String: responseJson.data[0].loading_date,
-              LoadingAddressString: responseJson.data[0].loading_address,
-              Company_String_LA: loading_address.company,
-              Address1_String_LA: loading_address.address1,
-              Address2_String_LA: loading_address.address2,
-              City_String_LA: loading_address.city,
-              Country_String_LA: loading_address.county,
-              PostalCode_String_LA: loading_address.post_code,
+              Loading_Time_String: responseJson.data[0].loading_time || '',
+              Loading_Date_String: responseJson.data[0].loading_date || '',
+              LoadingAddressString: responseJson.data[0].loading_address || '',
+              Company_String_LA: loading_address.company || '',
+              Address1_String_LA: loading_address.address1 || '',
+              Address2_String_LA: loading_address.address2 || '',
+              City_String_LA: loading_address.city || '',
+              Country_String_LA: loading_address.county || '',
+              PostalCode_String_LA: loading_address.post_code || '',
             });
           } else if (responseJson.data[0].haulage_type == 'type2') {
             this.setState({
               haulageValueString:
                 'Sidelifter (lifted to ground): Drop & Collect',
-              Delivery_Time_String: responseJson.data[0].delivery_time,
-              Delivery_Date_String: responseJson.data[0].delivery_date,
-              DeliveryAddressString: responseJson.data[0].delivery_address,
-              Collection_Date_String: responseJson.data[0].collection_date,
-              Collection_Time_String: responseJson.data[0].collection_time,
-              Company_String: delivery_address.company,
-              Address1_String: delivery_address.address1,
-              Address2_String: delivery_address.address2,
-              City_String: delivery_address.city,
-              Country_String: delivery_address.county,
-              PostalCode_String: delivery_address.post_code,
+              Delivery_Time_String: responseJson.data[0].delivery_time || '',
+              Delivery_Date_String: responseJson.data[0].delivery_date || '',
+              DeliveryAddressString: responseJson.data[0].delivery_address || '',
+              Collection_Date_String: responseJson.data[0].collection_date || '',
+              Collection_Time_String: responseJson.data[0].collection_time || '',
+              Company_String: delivery_address.company || '',
+              Address1_String: delivery_address.address1 || '',
+              Address2_String: delivery_address.address2 || '',
+              City_String: delivery_address.city || '',
+              Country_String: delivery_address.county || '',
+              PostalCode_String: delivery_address.post_code || '',
             });
           } else if (responseJson.data[0].haulage_type == 'type3') {
             this.setState({
@@ -364,9 +235,7 @@ export default class Profile extends Component {
             companyIDString: responseJson.data[0].ref,
             containerSizeValueString:
               responseJson.data[0].containersizetype.type,
-            // containerSizeValueString : bookingDataJson.data.containerSizeValueString,
             haulageIDString: responseJson.data[0].haulage_type,
-            // haulageValueString : bookingDataJson.data.haulageValueString,
             containerPurchaseString: responseJson.data[0].container_purchase,
             cargoTypeString: responseJson.data[0].cargo_type,
             CargoHazadeousString: responseJson.data[0].is_the_cargo_hazadeous,
@@ -381,20 +250,9 @@ export default class Profile extends Component {
               responseJson.data[0].site_contact_tel_number,
             AdditionalShippingInformationString:
               responseJson.data[0].additional_shipping_information,
-
-            // LoadingPostcodeString: bookingDataJson.data.LoadingPostcodeString,
-            // LoadingAddressString: bookingDataJson.data.LoadingAddressString,
-            // Delivery_Time_String: bookingDataJson.data.Delivery_Time_String,
-            // Delivery_Date_String: bookingDataJson.data.Delivery_Date_String,
-            // DeliveryAddressString: bookingDataJson.data.DeliveryAddressString,
-            // Collection_Date_String: bookingDataJson.data.Collection_Date_String,
-            // Collection_Time_String: bookingDataJson.data.Collection_Time_String,
-            // Loading_Time_String: bookingDataJson.data.Loading_Time_String,
-            // Loading_Date_String: bookingDataJson.data.Loading_Date_String,
           });
         }
       })
-      //If response is not in json then in error
       .catch(error => {
         alert(
           'Netwok request failed. Please check your internet connection and try again',
@@ -402,80 +260,11 @@ export default class Profile extends Component {
         console.error(error);
       });
   };
-  submitItem = async () => {
-    AsyncStorage.getItem('userBookingData')
-      .then(value => {
-        console.log('userBookingData value: ', JSON.parse(value));
-
-        var bearer = 'Bearer ' + this.state.tokenString;
-        this.loadingButton.showLoading(true);
-
-        fetch(UrlUtil.BASE_URL + 'newbooking', {
-          method: 'POST', //Request Type
-          body: value, //post body
-          headers: {
-            Accept: 'application/json',
-            Authorization: bearer,
-            'Content-Type': 'application/json',
-          },
-        })
-          .then(response => response.json())
-          //If response is in json then in success
-          .then(responseJson => {
-            // alert(JSON.stringify(responseJson));
-            console.log('submitItem response: ', responseJson);
-            this.loadingButton.showLoading(false);
-
-            if (responseJson.success == false) {
-              alert('Something went worng, please try again later');
-            } else {
-              this.Submit();
-            }
-          })
-          //If response is not in json then in error
-          .catch(error => {
-            alert(
-              'Netwok request failed. Please check your internet connection and try again',
-            );
-            console.error(error);
-            this.loadingButton.showLoading(false);
-          });
-      })
-      .then(res => {});
-  };
-
   toggleModal = () => {
     this.setState({isModalVisible: true});
   };
-  _onPressBotton1Handler = async () => {
-    //       Keyboard.dismiss()
-    //  this.Login()
-
-    if (this.state.isAgreed == false) {
-      alert('Please accept Terms & Conditions before you proceed');
-    } else {
-      this.loadingButton.showLoading(true);
-      this.submitItem();
-    }
-  };
-  Submit = async () => {
-    // Toast.show('Thank you for your order, we will confirm shortly', Toast.LONG)
-    setTimeout(() => {
-      this._scrollView.scrollTo({y: 1400});
-      this.loadingButton.showLoading(false);
-      this.setState({isSuccessTextShow: true});
-
-      setTimeout(() => {
-        this.props.navigation.replace('LoginPage');
-        // this.props.navigation.replace('LoginPage') //ParcelDetailsPage //DashPage
-      }, 2000);
-      // this.props.navigation.replace('LoginPage') //ParcelDetailsPage //DashPage
-    }, 2000);
-  };
 
   render() {
-    const {open, value, items} = this.state;
-
     return (
       <View style={styles.container}>
         <StatusBar backgroundColor="#4387bb" barStyle={'light-content'} />
@@ -578,7 +367,12 @@ export default class Profile extends Component {
             </View>
             <TouchableOpacity
               style={{marginRight: 22}}
-              onPress={() => this.props.navigation.navigate('NewOrderPage',{reorderFlag: true, record_id: this.props.route.params.id})}>
+              onPress={() =>
+                this.props.navigation.navigate('NewOrderPage', {
+                  reorderFlag: true,
+                  record_id: this.props.route.params.id,
+                })
+              }>
               <Text
                 style={{
                   fontFamily: 'BebasNeuePro-Middle',
@@ -589,19 +383,6 @@ export default class Profile extends Component {
               </Text>
             </TouchableOpacity>
           </View>
-
-          {/* <FlatList
-     keyboardDismissMode="none"
-      keyboardShouldPersistTaps='handled'
-      style={{
-        marginTop: 6,
-        marginBottom: 0
-      }}
-      
-                        data={this.state.itemList1}
-                        renderItem={this.renderHorizontalItem}
-                        keyExtractor={(item, index) => index}
-                    />  */}
 
           <Text
             style={{
@@ -622,51 +403,40 @@ export default class Profile extends Component {
               marginTop: 6,
               marginBottom: 0,
             }}
-            data={this.state.itemList}
+            data={Array.from(Array(23).keys())}
             renderItem={this.renderHorizontalItem1}
             keyExtractor={(item, index) => index}
           />
 
           <View style={{height: 100}}></View>
         </ScrollView>
+        <TabBarCommon
+          screenName={'OrderDetails'}
+          navigation={this.props.navigation}
+        />
 
-        {/* <TouchableOpacity onPress ={() => this.props.navigation.navigate('NewOrder1Page')} 
-          style={{flexDirection: 'row', justifyContent: 'flex-end', position: 'absolute',
-          height: 55,bottom:80, alignSelf: 'flex-end', width: '30%'
-}}>
-<Text style={{fontFamily: 'BebasNeuePro-Middle',fontSize: 27, justifyContent: 'center',  color: '#4387bb', marginTop: -2}}>Continue</Text>
-<Image style={{ height: 30, width: 30,resizeMode: 'contain', marginRight: 33, tintColor: '#4387bb'}}
-                source={require('../Images/outline_arrow_right_alt_black_48.png')}></Image>
-</TouchableOpacity> */}
-
-<TabBarCommon screenName={'OrderDetails'}  
-navigation={this.props.navigation} />
-
-        <SideMenuCommon screenName={'OrderDetails'} isVisible={this.state.isModalVisible}  
-navigation={this.props.navigation} 
-handleModalVisible={this.handleModalVisible}
-/>
+        <SideMenuCommon
+          screenName={'OrderDetails'}
+          isVisible={this.state.isModalVisible}
+          navigation={this.props.navigation}
+          handleModalVisible={this.handleModalVisible}
+        />
       </View>
     );
   }
-  handleModalVisible = (value) => {
-    this.setState({ isModalVisible: value });
-  }
+  handleModalVisible = value => {
+    this.setState({isModalVisible: value});
+  };
   renderHorizontalItem = ({item, index}) => {
     return (
       <View
         style={{
           flex: 1,
           marginTop: 1,
-          // padding:1,
           borderRadius: 10,
-          // paddingTop: 1,
-          // marginTop: 1,
-
           marginVertical: 0,
           marginLeft: 18,
           marginRight: 18,
-          // backgroundColor: 'red'
         }}>
         {index == 0 && (
           <Text
@@ -693,11 +463,6 @@ handleModalVisible={this.handleModalVisible}
             {this.state.companyNameString}
           </Text>
         )}
-
-        {/* { index == 1 && <Text style={{fontFamily: 'BebasNeuePro-Middle',
-  color: '#000',padding: 4, fontSize: 36.2, color: 'black'
-}}>{'12345678'}</Text> } */}
-
         {index == 2 && (
           <Text
             style={{
@@ -788,10 +553,6 @@ handleModalVisible={this.handleModalVisible}
             {this.state.refIDString}
           </Text>
         )}
-
-        {/* { index == 9 && <Text style={{fontFamily: 'BebasNeuePro-Middle',
-  color: '#000',padding: 4, fontSize: 36.2, color: 'black'
-}}>{'ID: '+ 'SM015'}</Text> }  */}
       </View>
     );
   };
@@ -799,7 +560,7 @@ handleModalVisible={this.handleModalVisible}
   logoutApi = async () => {
     var bearer = 'Bearer ' + this.state.tokenString;
     fetch(UrlUtil.BASE_URL + 'logout', {
-      method: 'GET', //Request Type
+      method: 'GET',
       headers: {
         Authorization: bearer,
         'Content-Type': 'application/json',
@@ -816,7 +577,6 @@ handleModalVisible={this.handleModalVisible}
           this.props.navigation.replace('SignInPage');
         }
       })
-      //If response is not in json then in error
       .catch(error => {
         alert(
           'Netwok request failed. Please check your internet connection and try again',
@@ -830,15 +590,10 @@ handleModalVisible={this.handleModalVisible}
         style={{
           flex: 1,
           marginTop: 1,
-          // padding:1,
           borderRadius: 10,
-          // paddingTop: 1,
-          // marginTop: 1,
-
           marginVertical: 5,
           marginLeft: 18,
           marginRight: 18,
-          // backgroundColor: 'red'
         }}>
         {index == 0 && (
           <Text
@@ -904,18 +659,6 @@ handleModalVisible={this.handleModalVisible}
             {'Haulage Type: ' + this.state.haulageValueString}
           </Text>
         )}
-
-        {/* { index == 5 && <Text style={{fontFamily: 'BebasNeuePro-Middle',
-    color: '#000',padding: 4, fontSize: 29.6, color: 'black'
-  }}>{'Loading Date: '+ this.state.Loading_Date_String}</Text> }  */}
-
-        {/* { index == 6 && <Text style={{fontFamily: 'BebasNeuePro-Middle',
-    color: '#000',padding: 4, fontSize: 29.6, color: 'black'
-  }}>{'Loading Time: '+ this.state.Loading_Time_String}</Text> }  */}
-
-        {/* { index == 7 && <Text style={{fontFamily: 'BebasNeuePro-Middle',
-    color: '#000',padding: 4, fontSize: 29.6, color: 'black'
-  }}>{'Loading Address: '+ this.state.LoadingAddressString}</Text> }  */}
 
         {index == 5 && (
           <Text
@@ -1038,10 +781,6 @@ handleModalVisible={this.handleModalVisible}
               {'Loading Time: ' + this.state.Loading_Time_String}
             </Text>
           )}
-
-        {/* { (index == 13 && (this.state.haulageIDString == 'type1' || this.state.haulageIDString == 'type3')) && <Text style={{fontFamily: 'BebasNeuePro-Middle',
-    color: '#000',padding: 4, fontSize: 29.6, color: 'black'
-  }}>{'Loading Address: '+ this.state.LoadingAddressString}</Text> }  */}
 
         {index == 14 &&
           (this.state.haulageIDString == 'type1' ||
@@ -1321,12 +1060,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#ecf6fa',
-    // backgroundColor: "#ecf6fa",
     marginTop: 0,
     zIndex: 0,
   },
   dashboard_main_headers: {
-    // backgroundColor: '#f55656',
     height: 60,
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -1337,63 +1074,10 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
     justifyContent: 'space-between',
   },
-  dashboard_headers_Create_View: {
-    width: '50%',
-    alignItems: 'flex-end',
-    justifyContent: 'space-between',
-  },
   menu_icon: {
     width: 30,
     height: 30,
     backgroundColor: 'transparent',
     tintColor: '#4387bb',
-  },
-  create_icon: {
-    width: 30,
-    height: 30,
-    marginEnd: 10,
-    marginTop: 4,
-    backgroundColor: 'transparent',
-    alignSelf: 'center',
-    tintColor: '#4387bb',
-  },
-  animatedBox: {
-    flex: 1,
-    backgroundColor: '#38C8EC',
-    padding: 10,
-  },
-  body: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#F04812',
-  },
-  footer: {
-    position: 'absolute',
-    height: 80,
-    left: 0,
-    // top: Dimensions.get('window').height - 100,
-    width: Dimensions.get('window').width,
-    backgroundColor: 'white',
-    bottom: 0,
-    // opacity: 0.9,
-
-    borderTopWidth: 1,
-    // borderRadius: 20,
-    borderColor: 'white',
-    borderBottomWidth: 0,
-    shadowColor: 'white',
-    shadowOffset: {width: 0, height: 3},
-    shadowOpacity: 0.9,
-    shadowRadius: 20,
-    elevation: 5,
-    flexDirection: 'row',
-    justifyContent: 'flex-start',
-    alignContent: 'flex-start',
-    alignItems: 'flex-start',
-    shadowColor: 'grey',
-    shadowOffset: {width: 0, height: 1},
-    shadowOpacity: 1,
-    shadowRadius: 3,
   },
 });
